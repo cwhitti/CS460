@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.Socket;
 
 // objects of this class work on one request
-class EchoThread implements Runnable {
+class DaytimeThread implements Runnable {
 
     Socket client;
     DataInputStream fromClient;
@@ -11,7 +11,7 @@ class EchoThread implements Runnable {
     int state = 0;
 
     // output streams to destination web server and requesting client
-    EchoThread(Socket client) {
+    DaytimeThread(Socket client) {
         this.client = client;
     }
 
