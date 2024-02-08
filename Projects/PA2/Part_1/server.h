@@ -16,8 +16,8 @@
 /* Function prototypes */
 void* handle_client(void* arg);
 char* get_ip_address(const char *string);
-void format_time(const char *string );
-void copyString( char *destStr, const char *srcStr );
+void format_time(const char *string, char *outStr );
+void copy_string( char *destStr, const char *srcStr );
 
 /* Preprocessor directives */
 #define SERVER_ADDR "time.nist.gov"
