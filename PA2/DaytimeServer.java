@@ -3,24 +3,24 @@ import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EchoServer {
+public class DaytimeServer {
 
     private static ServerSocket serverSocket;
     private static int port;
     private static int SERVER_PORT = 23657;
 
 
-    public EchoServer(int port) {
+    public DaytimeServer(int port) {
         try {
-            EchoServer.port = port;
-            EchoServer.serverSocket = new ServerSocket(port);
+            DaytimeServer.port = port;
+            DaytimeServer.serverSocket = new ServerSocket(port);
         } catch (IOException ex) {
-            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaytimeServer.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Error starting server on port " + port);
             System.exit(1);
         }
 
-        EchoServer.port = port;
+        DaytimeServer.port = port;
     }
 
     
@@ -49,7 +49,7 @@ public class EchoServer {
     public static void main(String args[]) throws Exception {
         // create instance of echo server
         // note that hardcoding the port is bad, here we do it just for simplicity reasons
-        EchoServer echoServer = new EchoServer(SERVER_PORT);
+        DaytimeServer echoServer = new DaytimeServer(SERVER_PORT);
 
         // fire up server loop
         echoServer.runServerLoop();
