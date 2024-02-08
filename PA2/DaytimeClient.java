@@ -16,6 +16,8 @@ public class DaytimeClient
          byte[] serverData = new byte[50];
          int index;
          
+         System.out.println("Daytime Client");
+
          if (socket.isConnected())
             {
              System.out.println("Connected successfully to " + SERVER_HOST + " on port " + PORT);
@@ -24,8 +26,6 @@ public class DaytimeClient
             {
              System.out.println("Failed to connect to " + SERVER_HOST + " on port " + PORT);
             }
-         
-         System.out.println("Data read from server:");
         
          // read first character of input
          fromServer.readFully(serverData);
