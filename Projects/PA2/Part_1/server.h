@@ -9,12 +9,16 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+// added libraries //
+#include <netdb.h>
+
 /* Function prototypes */
 void* handle_client(void* arg);
 char* get_ip_address(const char *string);
 
 /* Preprocessor directives */
 #define SERVER_ADDR "time.nist.gov"
+
 #define PORT 13              // port the server will listen on
 
 #define FALSE 0

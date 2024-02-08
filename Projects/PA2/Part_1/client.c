@@ -16,7 +16,7 @@ int main() {
     // create an unnamed socket, and then name it
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
 
-    // create addr structhiii 
+    // create addr structhiii sxadsafasd
     client_address.sin_family = AF_INET;
     client_address.sin_addr.s_addr = inet_addr(ip_addr);
     client_address.sin_port = htons(PORT);
