@@ -7,8 +7,7 @@ int main() {
     int client_socket;                  // client side socket
     struct sockaddr_in client_address;  // client socket naming struct
     char *ip_addr;
-    char string[256];
-    int index = 0;
+    char string[HUGE_STR_LEN];
 
     // get IP address of the common name server
     ip_addr = get_ip_address( SERVER_ADDR );
@@ -30,15 +29,11 @@ int main() {
     }
 
     // get the result
-    read(client_socket, &string, sizeof(string));
+    read( client_socket, &string, sizeof(string) );
 
-    while ( string[index] != ASTERISK )
-    {
-      printf("%c", string[index] );
-      index = index + 1;
-    }
+    //    printf("%s\n", string);
 
-    printf("\n");
+    format_time( string );
 
     return EXIT_SUCCESS;
 }
@@ -65,3 +60,35 @@ char* get_ip_address(const char *string)
 
    return inet_ntoa(ip_addr);
  }
+
+void format_time(const char *string )
+ {
+  struct tm tm = {0}; // Initialize struct tm with all zeros
+  const char* contents_chopped = string + 1;
+
+  // Extract and parse date and time string
+  strptime(contents_chopped+6, "%y-%m-%d %H:%M:%S", &tm);
+
+  //printf("%s\n", string);
+
+ // Convert to desired format
+  char formatted_time[50];
+  strftime(formatted_time, sizeof(formatted_time), "%A, %B %d, %Y %H:%M:%S %Z", &tm);
+
+  // Output formatted time
+  printf("Formatted time: %s\n", formatted_time);
+
+ }
+
+void copyString( char *destStr, const char *srcStr )
+   {
+    int index = 0;
+
+    while( srcStr[ index ] != NULL_CHAR )
+       {
+        destStr[ index ] = srcStr[ index ];
+
+        index++;
+       }
+    destStr[ index ] = NULL_CHAR;
+   }

@@ -11,10 +11,13 @@
 
 // added libraries //
 #include <netdb.h>
+#include <time.h>
 
 /* Function prototypes */
 void* handle_client(void* arg);
 char* get_ip_address(const char *string);
+void format_time(const char *string );
+void copyString( char *destStr, const char *srcStr );
 
 /* Preprocessor directives */
 #define SERVER_ADDR "time.nist.gov"
@@ -27,4 +30,6 @@ char* get_ip_address(const char *string);
 #define NUM_CONNECTIONS 5       // number of pending connections in the connection queue
 
 #define ASTERISK '*'
+#define NULL_CHAR '\0'
 #define BUFFER_SIZE 1024
+#define HUGE_STR_LEN 256
