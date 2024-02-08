@@ -40,6 +40,9 @@ public class DaytimeClient
              index++;
             }
 
+         // print new line
+         System.out.println();
+
          socket.close();
         }
     }
