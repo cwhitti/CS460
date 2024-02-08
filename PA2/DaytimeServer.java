@@ -33,7 +33,7 @@ public class DaytimeServer {
             // (new EchoThread(serverSocket.accept())).start();
             
             // if we have a runnable
-            (new Thread(new EchoThread(serverSocket.accept()))).start();
+            (new Thread(new DaytimeThread(serverSocket.accept()))).start();
             
             /*
             // the above is equivalent with the below.
