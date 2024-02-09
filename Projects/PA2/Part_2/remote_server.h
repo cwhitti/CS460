@@ -17,7 +17,7 @@ Peter Hilbert
 #include <sys/types.h>
 #include <unistd.h>
 #include <syslog.h>
-
+#include <signal.h>
 // added libraries //
 #include <time.h>
 #include <string.h>
@@ -27,12 +27,12 @@ void* handle_client(void* arg);
 void get_current_time( char *outStr );
 
 /* Preprocessor directives */
-//#define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
-//#define PORT 13
+#define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
+#define PORT 13
 
 /* Localhost directives */
-#define SERVER_ADDR "localhost"
-#define PORT 8080              // port the server will listen on
+//#define SERVER_ADDR "localhost"
+//#define PORT 8080              // port the server will listen on
 
 #define FALSE 0
 #define TRUE !FALSE
