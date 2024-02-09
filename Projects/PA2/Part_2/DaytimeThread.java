@@ -41,7 +41,7 @@ class DaytimeThread implements Runnable {
     }
 
     private String getTimeInfo() {
-         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");  
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a*");  
          LocalDateTime now = LocalDateTime.now();  
          return dtf.format(now); 
     }
