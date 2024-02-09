@@ -36,8 +36,10 @@ char* get_ip_address(const char *string);
 void* handle_client(void* arg);
 
 /* Preprocessor directives */
+/*
 #define SERVER_ADDR "127.0.0.1" // loopback ip address
 #define PORT 23657              // port the server will listen on
+*/
 
 #define FALSE 0
 #define TRUE !FALSE
