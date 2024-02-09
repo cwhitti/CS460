@@ -21,7 +21,7 @@ char* get_ip_address(const char *string);
 /* Preprocessor directives */
   // official server
 
-#define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
+#define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
 #define PORT 13              // port the server will listen on
 
 /* Local test */
