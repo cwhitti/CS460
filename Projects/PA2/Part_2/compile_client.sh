@@ -9,4 +9,8 @@ SOURCE_FILES=(
 OUTPUT_NAME="run_client"
 
 # Compile using GCC
-gcc -Wall "${SOURCE_FILES[@]}" -o "$OUTPUT_NAME"
+if gcc -Wall "${SOURCE_FILES[@]}" -o "$OUTPUT_NAME"; then
+    echo "Successful compile - output file named '$OUTPUT_NAME'".
+else
+    echo "Compilation failed".
+fi
