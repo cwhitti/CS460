@@ -7,7 +7,7 @@ public class DaytimeServer {
 
     private static ServerSocket serverSocket;
     private static int port;
-    private static int SERVER_PORT = 23657;
+    private static int SERVER_PORT = 13;
 
 
     public DaytimeServer(int port) {
