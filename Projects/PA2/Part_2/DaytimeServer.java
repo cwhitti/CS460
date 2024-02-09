@@ -1,3 +1,11 @@
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.logging.Level;

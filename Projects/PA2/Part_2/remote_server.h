@@ -1,3 +1,11 @@
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netinet/in.h>

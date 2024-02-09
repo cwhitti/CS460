@@ -1,3 +1,11 @@
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
 import java.io.*;
 import java.net.Socket;
 import java.io.DataInputStream;
