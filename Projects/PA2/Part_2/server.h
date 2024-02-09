@@ -24,19 +24,12 @@ void format_time(const char *string, char *outStr );
 #define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
 #define PORT 13              // port the server will listen on
 
-<<<<<<< Updated upstream
-/* Local test */
-/*
-  UNCOMMENT FOR USE ON LOCAL SERVER
-
-#define SERVER_ADDR "localhost"
-#define PORT 8080
-*/
-=======
 /* Localhost directives */
 //#define SERVER_ADDR "localhost"
 //#define PORT 8080
->>>>>>> Stashed changes
+
+/* Function prototypes */
+void* handle_client(void* arg);
 
 #define FALSE 0
 #define TRUE !FALSE

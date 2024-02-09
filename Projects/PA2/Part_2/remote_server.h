@@ -21,7 +21,7 @@ void* handle_client(void* arg);
 void get_current_time( char *outStr );
 
 /* Preprocessor directives */
-#define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
+#define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
 #define PORT 13
 
 /* Localhost directives */
