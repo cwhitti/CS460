@@ -28,7 +28,12 @@ class DaytimeThread implements Runnable {
         }
 
         try {
-            toClient.writeChars(getTimeInfo());
+	    String timeInfo = getTimeInfo();
+
+	    for (int index = 0; index < timeInfo.length(); index++)
+	        {
+		 toClient.writeByte(timeInfo.charAt(index));
+		}
         } catch (IOException e) {
             e.printStackTrace();
         }
