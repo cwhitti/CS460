@@ -18,15 +18,14 @@
 /* Function prototypes */
 void* handle_client(void* arg);
 void get_ip_address(const char *string, char *ip_addr);
-void format_time(const char *string, char *outStr );
 
 /* Preprocessor directives */
-#define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
-#define PORT 13              // port the server will listen on
+//#define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
+//#define PORT 13              // port the server will listen on
 
 /* Localhost directives */
-//#define SERVER_ADDR "localhost"
-//#define PORT 8080
+#define SERVER_ADDR "localhost"
+#define PORT 8080
 
 /* Function prototypes */
 void* handle_client(void* arg);

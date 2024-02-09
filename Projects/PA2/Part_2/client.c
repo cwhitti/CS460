@@ -1,3 +1,5 @@
+//
+
 #include "server.h"
 
 /************************************************************************
@@ -8,7 +10,7 @@ int main()
   int client_socket;                  // client side socket
   struct sockaddr_in client_address;  // client socket naming struct
   char ip_addr[INET_ADDRSTRLEN];
-  char inString[HUGE_STR_LEN]; //outStr[HUGE_STR_LEN];
+  char inString[HUGE_STR_LEN];
 
   // get IP address of the common name server
   get_ip_address( SERVER_ADDR, ip_addr );
@@ -31,7 +33,6 @@ int main()
 
   // get the result
   read( client_socket, &inString, sizeof(inString) );
-
 
   // print to console
   printf( "%s\n", inString );

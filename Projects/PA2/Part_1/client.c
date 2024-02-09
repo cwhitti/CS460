@@ -1,3 +1,5 @@
+//
+
 #include "server.h"
 
 /************************************************************************
@@ -8,7 +10,7 @@ int main()
   int client_socket;                  // client side socket
   struct sockaddr_in client_address;  // client socket naming struct
   char ip_addr[INET_ADDRSTRLEN];
-  char inString[HUGE_STR_LEN], outStr[HUGE_STR_LEN];
+  char inString[HUGE_STR_LEN];
 
   // get IP address of the common name server
   get_ip_address( SERVER_ADDR, ip_addr );
@@ -32,32 +34,11 @@ int main()
   // get the result
   read( client_socket, &inString, sizeof(inString) );
 
-  // format string
-  format_time( inString, outStr );
-
   // print to console
-  printf( "%s\n", outStr );
+  printf( "%s\n", inString );
 
   return EXIT_SUCCESS;
 }
-
-
-void format_time(const char *string, char *outStr )
-  {
-   // declare variables
-   struct tm tm; // Initialize struct tm with all zeros
-   const char* contents_chopped = string + 1;
-   char temp[HUGE_STR_LEN];
-
-   // convert NIST to time variable
-   strftime( contents_chopped + 6, "%y-%m-%d %H:%M:%S", &tm );
-
-   // convert time variable to temp
-   strftime( temp, sizeof( temp ), "%A, %B %d, %Y %H:%M:%S %Z", &tm );
-
-   // copy string back to main
-   strncpy( outStr, temp, HUGE_STR_LEN );
-  }
 
 void get_ip_address(const char *string, char *ip_string)
 {
