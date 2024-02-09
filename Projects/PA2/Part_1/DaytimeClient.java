@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.io.DataInputStream;
 
@@ -14,8 +14,6 @@ public class DaytimeClient
         {
          Socket socket = new Socket(SERVER_HOST, PORT);
          DataInputStream fromServer = new DataInputStream(socket.getInputStream());
-         byte[] serverData = new byte[50];
-         int index;
 
          System.out.println("Daytime Client");
 
@@ -29,21 +27,37 @@ public class DaytimeClient
             }
 
          // read first character of input
-         fromServer.readFully(serverData);
-         index = 0;
+         byte inByte = readByteFromStream(fromServer);
 
-         while (serverData[index] != OTM)
+         while (inByte != OTM)
             {
              // print read character
-             System.out.print((char)serverData[index]);
+             System.out.print((char)inByte);
 
              // read the next character
-             index++;
+             inByte = readByteFromStream(fromServer);
             }
 
          // print new line
          System.out.println();
 
          socket.close();
+        }
+
+      private static byte readByteFromStream(DataInputStream inputStream)
+        {
+         try
+            {
+             return inputStream.readByte();
+            }
+          catch (EOFException eofe)
+            {
+             return (byte)'\n';
+            }
+          catch (IOException ioe)
+            {
+             ioe.printStackTrace();
+             return (byte)'\n';
+            }
         }
     }
