@@ -1,4 +1,11 @@
-//
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
 
 #include "server.h"
 
