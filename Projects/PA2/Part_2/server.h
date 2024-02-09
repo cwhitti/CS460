@@ -13,17 +13,18 @@
 // added libraries //
 #include <netdb.h>
 #include <time.h>
+#include <string.h>
 
 /* Function prototypes */
 void* handle_client(void* arg);
-char* get_ip_address(const char *string);
+void get_ip_address(const char *string, char *ip_addr);
+void format_time(const char *string, char *outStr );
 
 /* Preprocessor directives */
-  // official server
-
 #define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
 #define PORT 13              // port the server will listen on
 
+<<<<<<< Updated upstream
 /* Local test */
 /*
   UNCOMMENT FOR USE ON LOCAL SERVER
@@ -31,6 +32,11 @@ char* get_ip_address(const char *string);
 #define SERVER_ADDR "localhost"
 #define PORT 8080
 */
+=======
+/* Localhost directives */
+//#define SERVER_ADDR "localhost"
+//#define PORT 8080
+>>>>>>> Stashed changes
 
 #define FALSE 0
 #define TRUE !FALSE
