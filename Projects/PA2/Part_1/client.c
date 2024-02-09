@@ -69,7 +69,7 @@ void format_time(const char *string, char *outStr )
    char temp[HUGE_STR_LEN];
 
    // convert NIST to time variable
-   strptime( contents_chopped + 6, "%y-%m-%d %H:%M:%S", &tm );
+   strftime( contents_chopped + 6, "%y-%m-%d %H:%M:%S", &tm );
 
    // convert time variable to temp
    strftime( temp, sizeof( temp ), "%A, %B %d, %Y %H:%M:%S %Z", &tm );

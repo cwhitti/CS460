@@ -25,6 +25,8 @@ void get_current_time( char *outStr );
 #define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
 #define PORT 13
 
+
+
 /*
 #define SERVER_ADDR "localhost"
 #define PORT 8080              // port the server will listen on
