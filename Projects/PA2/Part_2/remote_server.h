@@ -11,34 +11,24 @@
 #include <syslog.h>
 
 // added libraries //
-#include <netdb.h>
+//#include <netdb.h>
 #include <time.h>
+#include <string.h>
+#include <signal.h>
+
 
 /* Function prototypes */
 void* handle_client(void* arg);
-char* get_ip_address(const char *string);
+void get_current_time( char *outStr );
 
 /* Preprocessor directives */
-  // official server
-
 #define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
-#define PORT 13              // port the server will listen on
+#define PORT 13
 
-/* Local test */
 /*
-  UNCOMMENT FOR USE ON LOCAL SERVER
-
 #define SERVER_ADDR "localhost"
-#define PORT 8080
+#define PORT 8080              // port the server will listen on
 */
-
-/* Function prototypes */
-void* handle_client(void* arg);
-
-/* Preprocessor directives */
-#define SERVER_ADDR "127.0.0.1" // loopback ip address
-#define PORT 23657              // port the server will listen on
-
 #define FALSE 0
 #define TRUE !FALSE
 
