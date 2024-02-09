@@ -11,17 +11,15 @@
 
 // added libraries //
 #include <netdb.h>
-#include <time.h>
+#include <string.h>
 
 /* Function prototypes */
 void* handle_client(void* arg);
-char* get_ip_address(const char *string);
+void get_ip_address(const char *string, char *ip_addr);
 void format_time(const char *string, char *outStr );
-void copy_string( char *destStr, const char *srcStr );
 
 /* Preprocessor directives */
 #define SERVER_ADDR "time.nist.gov"
-
 #define PORT 13              // port the server will listen on
 
 #define FALSE 0

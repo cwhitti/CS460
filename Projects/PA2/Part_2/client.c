@@ -7,11 +7,11 @@ int main()
 {
   int client_socket;                  // client side socket
   struct sockaddr_in client_address;  // client socket naming struct
-  char *ip_addr;
+  char ip_addr[INET_ADDRSTRLEN];
   char inString[HUGE_STR_LEN]; //outStr[HUGE_STR_LEN];
 
   // get IP address of the common name server
-  ip_addr = get_ip_address( SERVER_ADDR );
+  get_ip_address( SERVER_ADDR, ip_addr );
 
   // create an unnamed socket, and then name it
   client_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -39,25 +39,35 @@ int main()
   return EXIT_SUCCESS;
 }
 
-char* get_ip_address(const char *string)
+void get_ip_address(const char *string, char *ip_string)
 {
-  // declare variables
-   struct hostent *hp;
-   struct in_addr ip_addr;
+  struct addrinfo *headPtr, *wkgPtr;
+  struct sockaddr_in *ipv4 = NULL;
+  void *addr;
+  char temp[INET_ADDRSTRLEN];
 
-  /* call gethostbyname() with a host name. gethostbyname() returns a */
-  /* pointer to a hostent struct or NULL.                             */
-   hp = gethostbyname(string);
+  //hints.ai_family = AF_INET; // AF_INET means IPv4 only
 
-   if (!hp)
-   {
-      printf("%s was not resolved\n", string );
-      exit( EXIT_FAILURE );
-   }
+  if ( getaddrinfo( string, NULL, NULL, &headPtr ) == 0 )
+  {
+    // Loop through all the results and get the IP address
+    for (wkgPtr = headPtr; wkgPtr != NULL; wkgPtr = wkgPtr->ai_next)
+    {
+      ipv4 = (struct sockaddr_in *)wkgPtr->ai_addr;
+      addr = &( ipv4->sin_addr );
 
-  /* move h_addr to ip_addr. This enables conversion to a form        */
-  /* suitable for printing with the inet_ntoa() function.             */
-   ip_addr = *(struct in_addr *)(hp->h_addr);
+      // Convert the IP to a string
+      inet_ntop( wkgPtr->ai_family, addr, temp, sizeof temp);
+    }
+    // Free the linked list
+    freeaddrinfo( headPtr );
 
-   return inet_ntoa(ip_addr);
+    // Copy the IP address string
+    strncpy(ip_string, temp, INET_ADDRSTRLEN);
+  }
+  else
+  {
+    perror("Error resolving nostname.");
+    exit(EXIT_FAILURE);
+  }
  }

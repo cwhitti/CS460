@@ -11,7 +11,6 @@
 #include <syslog.h>
 
 // added libraries //
-//#include <netdb.h>
 #include <time.h>
 #include <string.h>
 #include <signal.h>
@@ -25,10 +24,10 @@ void get_current_time( char *outStr );
 #define SERVER_ADDR "hwsrv-1035768.hostwindsdns.com"
 #define PORT 13
 
-/*
-#define SERVER_ADDR "localhost"
-#define PORT 8080              // port the server will listen on
-*/
+/* Localhost directives */
+//#define SERVER_ADDR "localhost"
+//#define PORT 8080              // port the server will listen on
+
 #define FALSE 0
 #define TRUE !FALSE
 
