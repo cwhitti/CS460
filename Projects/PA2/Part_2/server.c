@@ -1,3 +1,11 @@
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
 #include "remote_server.h"
 
 

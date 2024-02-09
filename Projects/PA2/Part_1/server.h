@@ -1,3 +1,12 @@
+/*
+PA2
+
+Claire Whittington
+Peter Hilbert
+
+*/
+
+
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netinet/in.h>
@@ -11,17 +20,14 @@
 
 // added libraries //
 #include <netdb.h>
-#include <time.h>
+#include <string.h>
 
 /* Function prototypes */
 void* handle_client(void* arg);
-char* get_ip_address(const char *string);
-void format_time(const char *string, char *outStr );
-void copy_string( char *destStr, const char *srcStr );
+void get_ip_address(const char *string, char *ip_addr);
 
 /* Preprocessor directives */
 #define SERVER_ADDR "time.nist.gov"
-
 #define PORT 13              // port the server will listen on
 
 #define FALSE 0
