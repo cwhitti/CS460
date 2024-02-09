@@ -5,8 +5,8 @@ import java.io.DataInputStream;
 public class DaytimeClient
     {
      static Socket socket;
-     // static String SERVER_HOST = "108.174.197.222";
-     static String SERVER_HOST = "time.nist.gov";
+     static String SERVER_HOST = "108.174.197.222";
+     //static String SERVER_HOST = "time.nist.gov";
      static int PORT = 13;
      static char OTM = '*';
 
