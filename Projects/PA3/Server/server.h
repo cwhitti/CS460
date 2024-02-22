@@ -1,7 +1,6 @@
 /*
-PA2
+PA3
 
-Claire Whittington
 Peter Hilbert
 
 */
@@ -18,6 +17,7 @@ Peter Hilbert
 #include <unistd.h>
 #include <syslog.h>
 #include <signal.h>
+#include <netdb.h>
 // added libraries //
 #include <time.h>
 #include <string.h>
