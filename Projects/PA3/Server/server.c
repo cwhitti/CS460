@@ -129,39 +129,57 @@ void* handle_client(void* arg)
 
 void get_current_time( char *outStr )
 {
-  // declare variables
-  time_t rawtime;
-  struct tm *info;
-  char buffer[HUGE_STR_LEN];
+    // initialize variables
+    int proxySocket;
+    char rserverAddr[INET_ADDRSTRLEN];
+    
+    // create the proxy socket
+    proxySocket = socket(AF_INET, SOCK_STREAM, 0)
 
-  // get the time
-  time(&rawtime);
+    // get ip address of remote server
+    get_ip_address(REMOTE_ADDR, rserverAddr);
 
-  // ensure rawtime
-  if (rawtime == -1)
-  {
-      perror("Error getting current time");
-      exit(EXIT_FAILURE);
-  }
+    // connect to time server
+    if ( connect(proxySocket, (struct sockaddr*)&rserverAddr), 
+                                    sizeof(rserverAddr) == -1)
+        {
+         perror("Failed to connect to remote time server");
+         exit(EXIT_FAILURE);
+        } 
 
-  // get localtime
-  info = localtime(&rawtime);
-
-  // ensure localtime
-  if (info == NULL)
-  {
-      perror("Error converting time");
-      exit(EXIT_FAILURE);
-  }
-
-  // throw time into buffer
-    // ensure format
-  if (strftime(buffer, HUGE_STR_LEN, "%A, %B %d, %Y %H:%M:%S %Z", info) == 0)
-  {
-      perror("Error formatting time");
-      exit(EXIT_FAILURE);
-  }
-
-  // copy buffer into outStr
-  strncpy(outStr, buffer, HUGE_STR_LEN);
+    // read time info into the output string
+    read(proxySocket, outStr, sizeof(outStr));
 }
+
+void get_ip_address(const char *string, char *ip_string)
+{
+  struct addrinfo *headPtr, *wkgPtr;
+  struct sockaddr_in *ipv4 = NULL;
+  void *addr;
+  char temp[INET_ADDRSTRLEN];
+
+  //hints.ai_family = AF_INET; // AF_INET means IPv4 only
+
+  if ( getaddrinfo( string, NULL, NULL, &headPtr ) == 0 )
+  {
+    // Loop through all the results and get the IP address
+    for (wkgPtr = headPtr; wkgPtr != NULL; wkgPtr = wkgPtr->ai_next)
+    {
+      ipv4 = (struct sockaddr_in *)wkgPtr->ai_addr;
+      addr = &( ipv4->sin_addr );
+
+      // Convert the IP to a string
+      inet_ntop( wkgPtr->ai_family, addr, temp, sizeof temp);
+    }
+    // Free the linked list
+    freeaddrinfo( headPtr );
+
+    // Copy the IP address string
+    strncpy(ip_string, temp, INET_ADDRSTRLEN);
+  }
+  else
+  {
+    perror("Error resolving nostname.");
+    exit(EXIT_FAILURE);
+  }
+ }
