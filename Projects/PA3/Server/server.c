@@ -104,6 +104,8 @@ void* handle_client(void* arg)
 
     // get time
     get_current_time( outStr );
+    
+    //printf("String to send to client: %s\n", outStr);
 
     // send result back to client
     write(client_socket, &outStr, sizeof(outStr));
@@ -130,24 +132,36 @@ void get_current_time( char *outStr )
 {
     // initialize variables
     int proxySocket;
-    char rserverAddr[INET_ADDRSTRLEN];
+    char tempStr[HUGE_STR_LEN];
+    char rserverIp[INET_ADDRSTRLEN];
+    struct sockaddr_in rserverAddr;
+    
+    // get ip address of remote server
+    get_ip_address(REMOTE_ADDR, rserverIp);
     
     // create the proxy socket
     proxySocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    // get ip address of remote server
-    get_ip_address(REMOTE_ADDR, rserverAddr);
+    // idk what this does tbh
+    rserverAddr.sin_family = AF_INET;
+    rserverAddr.sin_addr.s_addr = inet_addr(rserverIp);
+    rserverAddr.sin_port = htons(PORT);
 
     // connect to time server
     if ( connect(proxySocket, (struct sockaddr*)&rserverAddr, 
-                                    sizeof(rserverAddr) == -1) )
+                                    sizeof(rserverAddr) ) == -1 )
         {
          perror("Failed to connect to remote time server");
          exit(EXIT_FAILURE);
         } 
 
-    // read time info into the output string
-    read(proxySocket, outStr, sizeof(outStr));
+    // read time info into the temp string
+    read(proxySocket, &tempStr, sizeof(tempStr));
+
+    //printf("Time string in function: %s\n", tempStr);
+    
+    // copy temp string to output string
+    strncpy(outStr, tempStr, HUGE_STR_LEN);
 }
 
 void get_ip_address(const char *string, char *ip_string)
