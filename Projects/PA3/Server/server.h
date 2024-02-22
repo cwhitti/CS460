@@ -25,6 +25,7 @@ Peter Hilbert
 /* Function prototypes */
 void* handle_client(void* arg);
 void get_current_time( char *outStr );
+void get_ip_address(const char *string, char *ip_string);
 
 /* Preprocessor directives */
 #define THIS_ADDR "hwsrv-1126936.hostwindsdns.com"
