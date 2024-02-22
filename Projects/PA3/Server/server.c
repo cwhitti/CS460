@@ -134,14 +134,14 @@ void get_current_time( char *outStr )
     char rserverAddr[INET_ADDRSTRLEN];
     
     // create the proxy socket
-    proxySocket = socket(AF_INET, SOCK_STREAM, 0)
+    proxySocket = socket(AF_INET, SOCK_STREAM, 0);
 
     // get ip address of remote server
     get_ip_address(REMOTE_ADDR, rserverAddr);
 
     // connect to time server
-    if ( connect(proxySocket, (struct sockaddr*)&rserverAddr), 
-                                    sizeof(rserverAddr) == -1)
+    if ( connect(proxySocket, (struct sockaddr*)&rserverAddr, 
+                                    sizeof(rserverAddr) == -1) )
         {
          perror("Failed to connect to remote time server");
          exit(EXIT_FAILURE);
