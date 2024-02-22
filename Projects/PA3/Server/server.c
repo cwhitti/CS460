@@ -142,7 +142,7 @@ void get_current_time( char *outStr )
     // create the proxy socket
     proxySocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    // idk what this does tbh
+    // configure socket address struct
     rserverAddr.sin_family = AF_INET;
     rserverAddr.sin_addr.s_addr = inet_addr(rserverIp);
     rserverAddr.sin_port = htons(PORT);
