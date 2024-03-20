@@ -98,13 +98,19 @@ int main(int argc, char** argv)
 void* handle_client(void* arg)
 {
     int client_socket = *((int*)arg);   // the socket connected to the client
-    int client_number;
+    int client_number, steps_taken;
     
     // get number from client
     read(client_socket, &client_number, sizeof(int));
 
+    printf("Number received: %d\n", client_number);
+
+    steps_taken = threea_plus_one(client_number);
+
     // for now, send the same number back to the client
-    write(client_socket, &client_number, sizeof(int));
+    write(client_socket, &steps_taken, sizeof(int));
+
+    printf("Steps taken: %d\n", steps_taken);
 
     // cleanup
     if (close(client_socket) == -1)
@@ -118,4 +124,9 @@ void* handle_client(void* arg)
     }
 
     pthread_exit(NULL);
+}
+
+int threea_plus_one(int num)
+{
+    return num;
 }

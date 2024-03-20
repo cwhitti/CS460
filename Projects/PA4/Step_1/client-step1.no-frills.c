@@ -13,7 +13,8 @@ int main()
   int my_number = 7;
   int server_number = talk_to_server(my_number);
 
-  printf("Number sent: %d\nNumber received: %d\n", my_number, server_number);
+  printf("Number sent: %d\n", my_number);
+  printf("Steps taken: %d\n", server_number);
 
   return EXIT_SUCCESS;
 }
@@ -24,6 +25,9 @@ int talk_to_server(int client_number)
   struct sockaddr_in client_address;  // client socket naming struct
   char ip_addr[INET_ADDRSTRLEN];
   int server_number;
+
+  // get IP address of the common name server
+  get_ip_address( SERVER_ADDR, ip_addr );
 
   // create an unnamed socket, and then name it
   client_socket = socket(AF_INET, SOCK_STREAM, 0);
