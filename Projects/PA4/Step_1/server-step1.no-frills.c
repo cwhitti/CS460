@@ -128,5 +128,21 @@ void* handle_client(void* arg)
 
 int threea_plus_one(int num)
 {
-    return num;
+    int steps = 0;
+
+    while (num != 1)
+    {
+        if (num % 2 == 0)
+        {
+            num = num / 2;
+        }
+        else
+        {
+            num = 3 * num + 1;
+        }
+
+        steps++;
+    }
+
+    return steps;
 }
