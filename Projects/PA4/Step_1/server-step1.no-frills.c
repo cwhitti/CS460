@@ -98,12 +98,13 @@ int main(int argc, char** argv)
 void* handle_client(void* arg)
 {
     int client_socket = *((int*)arg);   // the socket connected to the client
-    char* outStr = "Hello world";
+    int client_number;
     
-    //printf("String to send to client: %s\n", outStr);
+    // get number from client
+    read(client_socket, &client_number, sizeof(int));
 
-    // send result back to client
-    write(client_socket, &outStr, sizeof(outStr));
+    // for now, send the same number back to the client
+    write(client_socket, &client_number, sizeof(int));
 
     // cleanup
     if (close(client_socket) == -1)
