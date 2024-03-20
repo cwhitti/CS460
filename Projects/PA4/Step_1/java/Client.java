@@ -51,8 +51,8 @@ public class Client {
     public static void main(String[] args) throws IOException {
 
         // fallback server information, if no command line args provided
-        String hostIP = "127.0.0.1";
-        int port = 23657;
+        String hostIP = "hwsrv-1126936.hostwindsdns.com";
+        int port = 1103;
         
         Scanner userInput = new Scanner(System.in);
         int number = 0, steps;
