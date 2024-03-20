@@ -101,14 +101,14 @@ void* handle_client(void* arg)
     int client_number, steps_taken;
     
     // get number from client
-    read(client_socket, &client_number, sizeof(int));
+    read(client_socket, &client_number, sizeof(client_number));
 
     printf("Number received: %d\n", client_number);
 
     steps_taken = threea_plus_one(client_number);
 
     // for now, send the same number back to the client
-    write(client_socket, &steps_taken, sizeof(int));
+    write(client_socket, &steps_taken, sizeof(steps_taken));
 
     printf("Steps taken: %d\n", steps_taken);
 

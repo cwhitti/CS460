@@ -45,8 +45,11 @@ int talk_to_server(int client_number)
     exit(EXIT_FAILURE);
   }
 
+  // send our number to the server
+  write( client_socket, &client_number, sizeof(client_number) );
+
   // get the result
-  read( client_socket, &server_number, sizeof(int) );
+  read( client_socket, &server_number, sizeof(server_number) );
 
   // print to console
   return server_number;
