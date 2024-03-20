@@ -27,7 +27,7 @@ void get_ip_address(const char *string, char *ip_string);
 
 /* Preprocessor directives */
 #define THIS_ADDR "hwsrv-1126936.hostwindsdns.com"
-#define PORT 13
+#define PORT 1103
 
 #define FALSE 0
 #define TRUE !FALSE

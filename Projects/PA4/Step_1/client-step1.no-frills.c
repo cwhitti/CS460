@@ -63,6 +63,7 @@ void get_ip_address(const char *string, char *ip_string)
       // Convert the IP to a string
       inet_ntop( wkgPtr->ai_family, addr, temp, sizeof temp);
     }
+    
     // Free the linked list
     freeaddrinfo( headPtr );
 
