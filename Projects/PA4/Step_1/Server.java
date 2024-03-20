@@ -15,7 +15,7 @@ class Server {
     static Vector<Thread> threads = new Vector<Thread>();
 
     // web servers port it is listening on
-    static int port = 23657;
+    static int port = 1103;
 
     // max # worker threads
     static int workers = 5;
