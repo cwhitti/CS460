@@ -45,14 +45,17 @@ int talk_to_server(int client_number)
     exit(EXIT_FAILURE);
   }
 
+  // convert client number to network order
+  client_number = htonl(client_number);
+
   // send our number to the server
   write( client_socket, &client_number, sizeof(client_number) );
 
   // get the result
   read( client_socket, &server_number, sizeof(server_number) );
 
-  // print to console
-  return server_number;
+  // return the resulting number in correct order
+  return ntohl(server_number);
 }
 
 void get_ip_address(const char *string, char *ip_string)

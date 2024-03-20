@@ -103,9 +103,15 @@ void* handle_client(void* arg)
     // get number from client
     read(client_socket, &client_number, sizeof(client_number));
 
+    // get the number in correct order
+    client_number = ntohl(client_number);
+
     printf("Number received: %d\n", client_number);
 
     steps_taken = threea_plus_one(client_number);
+
+    // put the out number into network order
+    steps_taken = htonl(steps_taken);
 
     // for now, send the same number back to the client
     write(client_socket, &steps_taken, sizeof(steps_taken));
