@@ -110,13 +110,13 @@ void* handle_client(void* arg)
 
     steps_taken = threea_plus_one(client_number);
 
+    printf("Steps taken: %d\n", steps_taken);
+
     // put the out number into network order
     steps_taken = htonl(steps_taken);
 
     // for now, send the same number back to the client
     write(client_socket, &steps_taken, sizeof(steps_taken));
-
-    printf("Steps taken: %d\n", steps_taken);
 
     // cleanup
     if (close(client_socket) == -1)
