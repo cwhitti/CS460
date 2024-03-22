@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 
         // accept connection to client
         int client_socket = accept(server_socket, NULL, NULL);
-        printf("\nServer with PID %d: accepted client\n", getpid());
+        //printf("\nServer with PID %d: accepted client\n", getpid());
 
         // create thread to handle the client's request
         // note that this is a naive approach, i.e. there are race conditions

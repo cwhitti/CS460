@@ -16,7 +16,10 @@ int main()
 
   for (task = 0; task <= NUM_TASKS; task++)
   {
-    pthread_create(&thread, NULL, talk_to_server, (void*)&client_number);
+    if (pthread_create(&thread, NULL, talk_to_server, (void*)&client_number) != 0)
+      {
+       printf("Error creating thread\n");
+      }
   }
 
   sleep(5);
@@ -74,7 +77,7 @@ void* talk_to_server(void* arg)
     printf("Steps taken: %d\n", server_number);
   }
 
-  return NULL;
+  pthread_exit(NULL);
 }
 
 int read_int(int socket, int* int_value_ptr)
