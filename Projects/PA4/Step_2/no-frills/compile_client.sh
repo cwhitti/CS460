@@ -9,7 +9,7 @@ SOURCE_FILES=(
 OUTPUT_NAME="client-step2-no-frills"
 
 # Compile using GCC
-if gcc -Wall "${SOURCE_FILES[@]}" -o "$OUTPUT_NAME"; then
+if gcc -Wall "${SOURCE_FILES[@]}" -o "$OUTPUT_NAME" -pthread; then
     echo "Successful compile - output file named '$OUTPUT_NAME'".
 else
     echo "Compilation failed".

@@ -22,8 +22,7 @@ Peter Hilbert
 #include <string.h>
 
 /* Function prototypes */
-void* handle_client(void* arg);
-int talk_to_server(int client_number);
+void* talk_to_server(void* arg);
 void get_ip_address(const char *string, char *ip_addr);
 
 /* Preprocessor directives */
@@ -39,3 +38,4 @@ void get_ip_address(const char *string, char *ip_addr);
 #define NULL_CHAR '\0'
 #define BUFFER_SIZE 1024
 #define HUGE_STR_LEN 256
+#define NUM_TASKS 50

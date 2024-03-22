@@ -3,28 +3,35 @@ PA 4
 Peter Hilbert
 */
 
-#include "client-step1.byte-order.h"
+#include "client-step2.no-frills.h"
 
 /************************************************************************
  * MAIN
  ************************************************************************/
 int main()
 {
-  int my_number = 7;
-  int server_number = talk_to_server(my_number);
+  int client_number = 7;
+  int task;
+  pthread_t thread;
 
-  printf("Number sent: %d\n", my_number);
-  printf("Steps taken: %d\n", server_number);
+  for (task = 0; task <= NUM_TASKS; task++)
+  {
+    pthread_create(&thread, NULL, talk_to_server, (void*)&client_number);
+  }
+
+  sleep(5);
 
   return EXIT_SUCCESS;
 }
 
-int talk_to_server(int client_number)
+void* talk_to_server(void* arg)
 {
   int client_socket;                  // client side socket
   struct sockaddr_in client_address;  // client socket naming struct
   char ip_addr[INET_ADDRSTRLEN];
+  int client_number = *(int*)arg;
   int server_number;
+  int bytes_read;
 
   // get IP address of the common name server
   get_ip_address( SERVER_ADDR, ip_addr );
@@ -45,6 +52,8 @@ int talk_to_server(int client_number)
     exit(EXIT_FAILURE);
   }
 
+  printf("Number sent: %d\n", client_number);
+
   // convert client number to network order
   client_number = htonl(client_number);
 
@@ -52,10 +61,20 @@ int talk_to_server(int client_number)
   write( client_socket, &client_number, sizeof(client_number) );
 
   // get the result
-  read( client_socket, &server_number, sizeof(server_number) );
+  bytes_read = read( client_socket, &server_number, sizeof(server_number) );
 
-  // return the resulting number in correct order
-  return ntohl(server_number);
+  server_number = htonl(server_number);
+
+  if (bytes_read != 4)
+  {
+    printf("Incomplete read\n");
+  }
+  else
+  {
+    printf("Steps taken: %d\n", server_number);
+  }
+
+  return NULL;
 }
 
 void get_ip_address(const char *string, char *ip_string)
