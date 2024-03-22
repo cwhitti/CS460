@@ -133,17 +133,17 @@ void* handle_client(void* arg)
 
 int read_int(int socket, int* int_value_ptr)
 {
-  char ch1 = -1;
-  char ch2 = -1;
-  char ch3 = -1;
-  char ch4 = -1;
+  char ch1 = 0;
+  char ch2 = 0;
+  char ch3 = 0;
+  char ch4 = 0;
 
   read( socket, &ch1, sizeof(char));
   read( socket, &ch2, sizeof(char));
   read( socket, &ch3, sizeof(char));
   read( socket, &ch4, sizeof(char));
 
-  if (ch1 == -1 || ch2 == -1 || ch3 == -1 || ch4 == -1)
+  if (!ch1 && !ch2 && !ch3 && !ch4)
   {
     return -1;
   }

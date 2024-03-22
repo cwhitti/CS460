@@ -3,20 +3,19 @@ PA 4
 Peter Hilbert
 */
 
-#include "client-step2.complete-reads.h"
+#include "client-step3.no-frills.h"
 
 /************************************************************************
  * MAIN
  ************************************************************************/
 int main()
 {
-  int client_number = 7;
   int task;
   pthread_t thread;
 
-  for (task = 0; task <= NUM_TASKS; task++)
+  for (task = 1; task <= NUM_TASKS; task++)
   {
-    pthread_create(&thread, NULL, talk_to_server, (void*)&client_number);
+    pthread_create(&thread, NULL, talk_to_server, (void*)&task);
   }
 
   sleep(5);
@@ -61,7 +60,7 @@ void* talk_to_server(void* arg)
   write( client_socket, &client_number, sizeof(client_number) );
 
   // get the result
-  bytes_read = read_int(client_socket, &server_number);
+  bytes_read = read( client_socket, &server_number, sizeof(server_number) );
 
   server_number = htonl(server_number);
 
@@ -75,27 +74,6 @@ void* talk_to_server(void* arg)
   }
 
   return NULL;
-}
-
-int read_int(int socket, int* int_value_ptr)
-{
-  char ch1 = 0;
-  char ch2 = 0;
-  char ch3 = 0;
-  char ch4 = 0;
-
-  read( socket, &ch1, sizeof(char));
-  read( socket, &ch2, sizeof(char));
-  read( socket, &ch3, sizeof(char));
-  read( socket, &ch4, sizeof(char));
-
-  if (!ch1 && !ch2 && !ch3 && !ch4)
-  {
-    return -1;
-  }
-
-  *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
-  return 4;
 }
 
 void get_ip_address(const char *string, char *ip_string)
