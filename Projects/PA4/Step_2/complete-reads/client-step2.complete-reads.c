@@ -79,22 +79,22 @@ void* talk_to_server(void* arg)
 
 int read_int(int socket, int* int_value_ptr)
 {
-  int ch1 = -1;
-  int ch2 = -1;
-  int ch3 = -1;
-  int ch4 = -1;
+  char ch1 = -1;
+  char ch2 = -1;
+  char ch3 = -1;
+  char ch4 = -1;
 
-  read( socket, &ch1, 1);
-  read( socket, &ch2, 1);
-  read( socket, &ch3, 1);
-  read( socket, &ch4, 1);
+  read( socket, &ch1, sizeof(char));
+  read( socket, &ch2, sizeof(char));
+  read( socket, &ch3, sizeof(char));
+  read( socket, &ch4, sizeof(char));
 
   if (ch1 == -1 || ch2 == -1 || ch3 == -1 || ch4 == -1)
   {
     return -1;
   }
 
-  *int_value_ptr = ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
+  *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
   return 4;
 }
 

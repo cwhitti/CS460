@@ -101,10 +101,9 @@ void* handle_client(void* arg)
     int client_number, steps_taken;
     
     // get number from client
-    read(client_socket, &client_number, sizeof(client_number));
+    //read(client_socket, &client_number, sizeof(client_number));
 
-    // get the number in correct order
-    client_number = ntohl(client_number);
+    read_int(client_socket, &client_number);
 
     printf("Number received: %d\n", client_number);
 
@@ -130,6 +129,27 @@ void* handle_client(void* arg)
     }
 
     pthread_exit(NULL);
+}
+
+int read_int(int socket, int* int_value_ptr)
+{
+  char ch1 = -1;
+  char ch2 = -1;
+  char ch3 = -1;
+  char ch4 = -1;
+
+  read( socket, &ch1, sizeof(char));
+  read( socket, &ch2, sizeof(char));
+  read( socket, &ch3, sizeof(char));
+  read( socket, &ch4, sizeof(char));
+
+  if (ch1 == -1 || ch2 == -1 || ch3 == -1 || ch4 == -1)
+  {
+    return -1;
+  }
+
+  *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
+  return 4;
 }
 
 int threea_plus_one(int num)
