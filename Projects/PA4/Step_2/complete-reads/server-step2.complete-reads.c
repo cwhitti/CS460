@@ -115,7 +115,10 @@ void* handle_client(void* arg)
     steps_taken = htonl(steps_taken);
 
     // for now, send the same number back to the client
-    write(client_socket, &steps_taken, sizeof(steps_taken));
+    if (write(client_socket, &steps_taken, sizeof(steps_taken)) == 0)
+        {
+         printf("Error writing\n");
+        }
 
     // cleanup
     if (close(client_socket) == -1)

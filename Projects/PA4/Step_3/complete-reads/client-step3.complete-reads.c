@@ -6,7 +6,6 @@ Peter Hilbert
 #include "client-step3.complete-reads.h"
 
 pthread_mutex_t mp = PTHREAD_MUTEX_INITIALIZER;
-#define ret pthread_mutex_init(&mp, NULL);
 
 /************************************************************************
  * MAIN
@@ -14,18 +13,31 @@ pthread_mutex_t mp = PTHREAD_MUTEX_INITIALIZER;
 int main()
 {
   int task;
-  pthread_t thread;
 
+  pthread_mutex_init(&mp, NULL);
   pthread_mutex_lock(&mp);
 
   for (task = 1; task <= NUM_TASKS; task++)
   {
-    pthread_create(&thread, NULL, talk_to_server, (void*)&task);
+        pthread_t thread;
+        if (pthread_create(&thread, NULL, talk_to_server, (void*)&task) != 0)
+        {
+            perror("Error creating thread");
+            exit(EXIT_FAILURE);
+        }
 
-    pthread_mutex_lock(&mp);
+        pthread_mutex_lock(&mp);
+
+        // detach the thread so that we don't have to wait (join) with it to reclaim memory.
+        // memory will be reclaimed when the thread finishes.
+        if (pthread_detach(thread) != 0)
+        {
+            perror("Error detaching thread");
+            exit(EXIT_FAILURE);
+        }
+
+        sleep(5);
   }
-
-  sleep(5);
 
   return EXIT_SUCCESS;
 }
