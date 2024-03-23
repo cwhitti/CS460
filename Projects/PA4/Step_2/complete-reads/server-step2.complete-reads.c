@@ -163,12 +163,12 @@ int read_int(int socket, int* int_value_ptr) {
         lastRead = read(socket, buffer + totalRead, sizeof(int) - totalRead);
 
         if (lastRead < 0) {
+            /*
             // An error occurred on read
             if (errno == EINTR) {
                 // The read was interrupted by a signal, try reading again
                 continue;
             }
-            /*
             } else {
                 // A different error occurred
                 return -1;
