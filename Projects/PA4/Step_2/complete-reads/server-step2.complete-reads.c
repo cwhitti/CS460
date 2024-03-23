@@ -148,7 +148,7 @@ int read_int(int socket, int* int_value_ptr)
     return -1;
   }
 
-  *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
+  *int_value_ptr = (int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
   return 4;
 }
 

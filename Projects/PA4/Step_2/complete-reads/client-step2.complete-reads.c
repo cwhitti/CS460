@@ -66,8 +66,6 @@ void* talk_to_server(void* arg)
   // get the result
   bytes_read = read_int(client_socket, &server_number);
 
-  server_number = htonl(server_number);
-
   if (bytes_read != 4)
   {
     printf("Incomplete read\n");
@@ -97,7 +95,7 @@ int read_int(int socket, int* int_value_ptr)
     return -1;
   }
 
-  *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
+  *int_value_ptr = (int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
   return 4;
 }
 
