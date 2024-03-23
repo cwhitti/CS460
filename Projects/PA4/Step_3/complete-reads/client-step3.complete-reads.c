@@ -36,7 +36,7 @@ int main()
             exit(EXIT_FAILURE);
         }
 
-	sleep(1);
+	//sleep(1);
   }
 
   sleep(5);
