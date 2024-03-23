@@ -3,7 +3,7 @@ PA 4
 Peter Hilbert
 */
 
-#include "client-step3.no-frills.h"
+#include "client-step3.race.h"
 
 /************************************************************************
  * MAIN
