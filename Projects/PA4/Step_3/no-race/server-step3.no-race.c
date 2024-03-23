@@ -3,7 +3,7 @@ PA 4
 Peter Hilbert
 */
 
-#include "server-step2.no-race.h"
+#include "server-step3.no-race.h"
 
 pthread_mutex_t mp = PTHREAD_MUTEX_INITIALIZER;
 
