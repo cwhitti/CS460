@@ -68,7 +68,7 @@ void* talk_to_server(void* arg)
 
   if (bytes_read != 4)
   {
-    printf("Incomplete read\n");
+    printf("Network error\n");
   }
   else
   {
