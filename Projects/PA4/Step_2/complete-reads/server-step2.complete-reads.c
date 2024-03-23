@@ -167,10 +167,13 @@ int read_int(int socket, int* int_value_ptr) {
             if (errno == EINTR) {
                 // The read was interrupted by a signal, try reading again
                 continue;
+            }
+            /*
             } else {
                 // A different error occurred
                 return -1;
             }
+            */
         } else if (lastRead == 0) {
             // The other side has closed the connection
             return -1;
