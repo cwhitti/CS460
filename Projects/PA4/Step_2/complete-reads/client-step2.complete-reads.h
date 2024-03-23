@@ -39,4 +39,4 @@ int read_int(int socket, int* int_value_ptr);
 #define NULL_CHAR '\0'
 #define BUFFER_SIZE 1024
 #define HUGE_STR_LEN 256
-#define NUM_TASKS 50
+#define NUM_TASKS 20

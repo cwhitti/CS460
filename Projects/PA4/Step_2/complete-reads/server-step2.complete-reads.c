@@ -131,6 +131,7 @@ void* handle_client(void* arg)
     pthread_exit(NULL);
 }
 
+/*
 int read_int(int socket, int* int_value_ptr)
 {
   char ch1 = 0;
@@ -151,6 +152,38 @@ int read_int(int socket, int* int_value_ptr)
   *int_value_ptr = ntohl((int)((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)));
   return 4;
 }
+*/
+
+int read_int(int socket, int* int_value_ptr) {
+    ssize_t totalRead = 0;
+    ssize_t lastRead;
+    char *buffer = (char*)int_value_ptr;
+
+    while (totalRead < sizeof(int)) {
+        lastRead = read(socket, buffer + totalRead, sizeof(int) - totalRead);
+
+        if (lastRead < 0) {
+            // An error occurred on read
+            if (errno == EINTR) {
+                // The read was interrupted by a signal, try reading again
+                continue;
+            } else {
+                // A different error occurred
+                return -1;
+            }
+        } else if (lastRead == 0) {
+            // The other side has closed the connection
+            return -1;
+        } else {
+            // Successfully read some bytes
+            totalRead += lastRead;
+        }
+    }
+
+    // If we get here, we've read exactly sizeof(int) bytes.
+    return totalRead;  // Return the total number of bytes read.
+}
+
 
 int threea_plus_one(int num)
 {
