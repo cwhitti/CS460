@@ -35,6 +35,8 @@ int main()
             perror("Error detaching thread");
             exit(EXIT_FAILURE);
         }
+
+	sleep(1);
   }
 
   sleep(5);
