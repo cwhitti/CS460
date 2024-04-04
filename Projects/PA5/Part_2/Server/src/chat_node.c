@@ -1,3 +1,5 @@
+#include "chat_node.h"
+
 /*
   Function: createChatNodeFromData
 
@@ -71,18 +73,27 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
 {
   // declare variables
-  ChatNode *temp, *parentNode;
+  // ChatNode *temp, *parentNode;
 
   // check for chatNodeList
-  if ( chatNodeList != NULL )
-  {
+
+    // Special case: chatNode is first
+
+    // Special case: chatNode is last
+
     // grab parent node
       // FUNCTION: removeNodeFromListHelper
-    parentNode = removeNodeFromListHelper(chatNodeList, chatNode, compareNode);
+      // parentNode = removeNodeFromListHelper(chatNodeList, chatNode, compareNode);
 
     // if parentNode != NULL
 
-      // remove child
+      // set  temp to parentNode -> next
+
+      // set parentNode -> next = chatNode
+
+      // free temp
+
+      // return true
   }
 
   return false; // temp stub
@@ -90,16 +101,24 @@ bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
 
 ChatNode* removeNodeFromListHelper( ChatNodeList* chatNodeList,
                                         ChatNode* parentNode,
-                                          ChatNode *compareNode)
+                                            ChatNode *compareNode)
 {
   // declare variables
 
   // iterate through list
 
-    // 
+    // grab child node
 
-    //
+    // Check if childNode != NULL
 
+      // If compare child ptr to cmpNode
+
+        // return parentNode
+
+      // increment wkgPtr
+
+  // return NULL
+  return NULL;
 
 }
 
@@ -110,5 +129,11 @@ ChatNode* removeNodeFromListHelper( ChatNodeList* chatNodeList,
 */
 bool compareChatNodes( ChatNode* first, ChatNode* second )
 {
+  // compare name to name
+
+  // compare ip to ip
+
+  // compare port to port
+
   return false; // temp stub
 }

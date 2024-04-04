@@ -1,3 +1,6 @@
+#ifndef CHAT_NODE_H
+#define CHAT_NODE_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,14 +20,14 @@ typedef struct chat_node_struct
 typedef struct chat_node_list_element_struct
 {
   ChatNode chat_node;
-  ChatNode* next;
+  struct chat_node_list_element_struct* next;
 } ChatNodeListElement;
 
 // ChatNodeList
 typedef struct chat_node_list_struct
 {
   ChatNodeListElement* firstPtr;
-  ChatNodeListElement* lastPtr;
+  // ChatNodeListElement* lastPtr;
 } ChatNodeList;
 
 // create chat node from given data
@@ -32,11 +35,11 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
                                                     char* name);
 
 // create a chat node list
-ChatNodes* initializeChatNodeList( void );
+ChatNodeList* initializeChatNodeList( void );
 
 void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode );
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode);
 
 bool compareChatNodes( ChatNode* first, ChatNode* second );
 
-#endif /* chat_node.h */
+#endif
