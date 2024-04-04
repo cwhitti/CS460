@@ -1,13 +1,16 @@
+#ifndef MESSAGE_H
+#define MESSAGE_H
+
 #include "chat_node.h"
 
 typedef enum {
     JOIN = 0,
-    LEAVE,
-    SHUTDOWN,
-    SHUTDOWN_ALL,
-    NOTE,
-    JOINING,
-    LEAVING
+    LEAVE = 1,
+    SHUTDOWN = 2,
+    SHUTDOWN_ALL = 3,
+    NOTE = 4,
+    JOINING = 5,
+    LEAVING = 6
 } MessageType;
 
 typedef char Note[64];
@@ -22,8 +25,8 @@ typedef struct messageStruct {
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
 */
-Message* createMessageFromData(MessageType* inMsgType,
-                               ChatNode inMsgSender,
+Message* createMessageFromData(MessageType inMsgType, 
+                               ChatNode* inMsgSender,
                                Note inNoteContent);
 
 /*
@@ -32,3 +35,5 @@ from another message
 Dependencies: createMessageFromData
 */
 Message* createMessageFromMessage(Message* inMsg);
+
+#endif

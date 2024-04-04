@@ -1,8 +1,10 @@
+#include "message.h"
+
 /*
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
 */
-Message* createMessageFromData(MessageType* inMsgType,
+Message* createMessageFromData(MessageType* inMsgType, 
                                ChatNode inMsgSender,
                                Note inNoteContent)
 {

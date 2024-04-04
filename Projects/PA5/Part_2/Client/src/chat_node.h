@@ -27,7 +27,7 @@ typedef struct chat_node_list_element_struct
 typedef struct chat_node_list_struct
 {
   ChatNodeListElement* firstPtr;
-  ChatNodeListElement* lastPtr;
+  // ChatNodeListElement* lastPtr;
 } ChatNodeList;
 
 // create chat node from given data
@@ -39,6 +39,10 @@ ChatNodeList* initializeChatNodeList( void );
 
 void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode );
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode);
+
+ChatNode* removeNodeFromListHelper( ChatNodeList* chatNodeList,
+                                        ChatNode* parentNode,
+                                            ChatNode *compareNode);
 
 bool compareChatNodes( ChatNode* first, ChatNode* second );
 
