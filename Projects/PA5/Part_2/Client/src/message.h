@@ -1,13 +1,16 @@
+#ifndef MESSAGE_H
+#define MESSAGE_H
+
 #include "chat_node.h"
 
-typedef enum messageTypeEnum {
+typedef enum {
     JOIN = 0,
-    LEAVE,
-    SHUTDOWN,
-    SHUTDOWN_ALL,
-    NOTE,
-    JOINING,
-    LEAVING
+    LEAVE = 1,
+    SHUTDOWN = 2,
+    SHUTDOWN_ALL = 3,
+    NOTE = 4,
+    JOINING = 5,
+    LEAVING = 6
 } MessageType;
 
 typedef char Note[64];
@@ -32,3 +35,5 @@ from another message
 Dependencies: createMessageFromData
 */
 Message* createMessageFromMessage(Message* inMsg);
+
+#endif

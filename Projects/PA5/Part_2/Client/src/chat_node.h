@@ -1,3 +1,6 @@
+#ifndef CHAT_NODE_H
+#define CHAT_NODE_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,11 +35,11 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
                                                     char* name);
 
 // create a chat node list
-ChatNodes* initializeChatNodeList( void );
+ChatNodeList* initializeChatNodeList( void );
 
 void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode );
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode);
 
 bool compareChatNodes( ChatNode* first, ChatNode* second );
 
-#endif /* chat_node.h */
+#endif
