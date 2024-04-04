@@ -22,6 +22,13 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
   return newNode; // return newNode
 }
 
+
+void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
+{
+  destNode -> ip = srcNode -> ip;
+  destNode -> port = srcNode -> port;
+  destNode -> name = srcNode -> name;
+}
 /*
   Function: initializeChatNodeList
 

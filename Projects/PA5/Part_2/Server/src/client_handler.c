@@ -1,6 +1,8 @@
 // join function
-void clientJoin( ChatNodeList *clientList, ChatNode* clientNode )
+void clientJoin( ChatNodeList *clientList, Message* messageObj )
 {
+  // grab client from messageObj
+
   // add client to clientList
     // function: addChatNodeToList
 
@@ -9,9 +11,9 @@ void clientJoin( ChatNodeList *clientList, ChatNode* clientNode )
 }
 
 // leave function
-void clientLeave( ChatNodeList *clientList, ChatNode* clientNode )
+void clientLeave( ChatNodeList *clientList, Message* messageObj )
 {
-  // client will stop receiving, can still send JOIN message
+  // grab client from messageObj
 
   // remove chat node
     // function: removeNodeFromList
@@ -21,9 +23,11 @@ void clientLeave( ChatNodeList *clientList, ChatNode* clientNode )
 }
 
 // note function
-void clientNote( ChatNodeList *clientList, ChatNode* clientNode, Note *outStr )
+void clientNote( ChatNodeList *clientList, Message* messageObj )
 {
   // declare variables
+
+  // grab client from messageObj
 
   // loop through clientList
 
@@ -35,11 +39,13 @@ void clientNote( ChatNodeList *clientList, ChatNode* clientNode, Note *outStr )
 }
 
 // shutdown function
-void clientShutdown( ChatNodeList *clientList, ChatNode* clientNode )
+void clientShutdown( ChatNodeList *clientList, Message* messageObj )
 {
   // declare variables
 
-  // loop thrpugh clientList
+  // grab client from messageObj
+
+  // loop through clientList
 
     // check if currentNode == clientNode
 
@@ -63,22 +69,40 @@ void get_ip_address(const char *string, char *ip_string)
 }
 
 // joining function
-void globalJoining( ChatNodeList *clientList, ChatNode *clientNode )
+void globalJoining( ChatNodeList *clientList, Message* messageObj )
 {
-  // push [USER JOIN] message to all clients
+  // grab client from messageObj
+
+  // iterate through clientList
+
+    // check if currentNode != clientNode
+
+      // send message to everyone
+        // function: writeMessageToSocket
 }
 
 // leaving function
-void globalLeaving( ChatNodeList *clientList, ChatNode *clientNode )
+void globalLeaving( ChatNodeList *clientList, Message* messageObj )
 {
+  // "(!) [USER] has left."
 
-  // push [USER LEAVE] message to all clients
+  // iterate through clientList
+
+    // check if currentNode != clientNode
+
+      // send message to everyone
+        // function: writeMessageToSocket
 
 }
 
-void globalShutdown( ChatNodeList *clientList, ChatNode *clientNode )
+void globalShutdown( ChatNodeList *clientList, Message* messageObj )
 {
+  // "(!) Shutting Down..."
 
+  // iterate through clientList
+
+    // send message to everyone
+      // function: writeMessageToSocket
 }
 
 void* handle_client( void* args )
@@ -91,6 +115,7 @@ void* handle_client( void* args )
 
   // read entire message from socket, returns pointer to new msg struct
     // function: readMessageFromSocket( )
+  // messageObj = readMessageFromSocket( )
 
   // process depending on MessageType
 
