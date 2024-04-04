@@ -34,7 +34,8 @@ typedef struct chat_node_list_struct
 ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
                                                     char* name);
 
-void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode); 
+void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode);
+
 // create a chat node list
 ChatNodeList* initializeChatNodeList( void );
 

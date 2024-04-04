@@ -6,6 +6,8 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
   // add client to clientList
     // function: addChatNodeToList
 
+  // change msgtype from JOIN > JOINED
+
   // send join message to all clients
     // function: globalJoining()
 }
@@ -17,6 +19,8 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
 
   // remove chat node
     // function: removeNodeFromList
+
+  // change msgtype from LEAVE > LEAVING
 
   // send
     // function: globalLeaving()
@@ -71,7 +75,7 @@ void get_ip_address(const char *string, char *ip_string)
 // joining function
 void globalJoining( ChatNodeList *clientList, Message* messageObj )
 {
-  // grab client from messageObj
+    // "(!) [USER] has joined."
 
   // iterate through clientList
 
@@ -91,7 +95,7 @@ void globalLeaving( ChatNodeList *clientList, Message* messageObj )
     // check if currentNode != clientNode
 
       // send message to everyone
-        // function: writeMessageToSocket
+        // function: writeMessageToSocket( messageObj )
 
 }
 
