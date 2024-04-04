@@ -1,5 +1,25 @@
+// "Client" dependencies
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <syslog.h>
+
+// Other dependencies
 #include "message.h"
 #include <stdbool.h>
+
+/*
+Implements loop of listening for messages from server. Expects a pointer
+to a socket as the argument.
+Dependencies: parseMessage, writeMessageToSocket, scanf
+*/
+void* senderLoop(void* arg);
 
 /*
 Reads data from the socket, expecting message data, and returns

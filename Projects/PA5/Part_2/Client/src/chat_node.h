@@ -23,8 +23,8 @@ typedef struct chat_node_list_element_struct
 // ChatNodeList
 typedef struct chat_node_list_struct
 {
-  ChatNodeListElement* first;
-  ChatNodeListElement* last;
+  ChatNodeListElement* firstPtr;
+  ChatNodeListElement* lastPtr;
 } ChatNodeList;
 
 // create chat node from given data
