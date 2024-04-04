@@ -9,12 +9,14 @@ int main(int argc, char** argv)
     char clientIPString[INET_ADDRSTRLEN] ;
     int senderPort;
     int receiverPort;
+    char myName[NAME_LEN];
+    ChatNode* myChatNode;
 
     struct sockaddr_in serverAddress;
     char serverIPString[INET_ADDRSTRLEN] ;
     int serverPort;
-    char myName[NAME_LEN];
 
+    SenderArgs* senderArgs;
     Properties* properties;
 
     // read properties
@@ -85,6 +87,12 @@ int main(int argc, char** argv)
         exit(EXIT_FAILURE);
     }
 
+    // initialize chat node with our information
+        // function: createChatNodeFromData
+     myChatNode = createChatNodeFromData(inet_addr(clientIPString), senderPort, myName);
+     senderArgs->sendingSocket = sendingSocket;
+     senderArgs->myChatNode = myChatNode;
+
     // start sending messages to server
-    pthread_create(&sendingThread, NULL, senderLoop, (void*)&sendingSocket);
+    pthread_create(&sendingThread, NULL, senderLoop, (void*)senderArgs);
 }

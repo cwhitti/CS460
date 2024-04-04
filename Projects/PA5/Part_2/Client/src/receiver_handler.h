@@ -21,4 +21,22 @@ Dependencies: readMessageFromSocket, printf
 */
 void* receiverLoop(void* arg);
 
+/*
+Prints a message like "name: note" for a NOTE message type
+Dependencies: printf
+*/
+void printNote(Message* inMsg);
 
+/*
+Prints a message like "<name> joined the chat" for a JOINED
+message type
+Dependencies: printf
+*/
+void printJoinMessage(Message* inMsg);
+
+/*
+Prints a message like "<name> left the chat" for a LEAVING
+message type
+Dependencies: printf
+*/
+void printLeaveMessage(Message* inMsg);

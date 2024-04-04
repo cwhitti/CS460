@@ -7,5 +7,27 @@ Dependencies: readMessageFromSocket, printf
 */
 void* receiverLoop(void* arg)
 {
-    
+    // receiver loop
+
+        // accept a new connection from server
+
+        // read message from server
+            // function: readMessageFromSocket
+
+        // close socket
+
+        // process depending on message type:
+
+            // JOINED: print join message
+                // function: printJoinMessage
+
+            // LEAVING: print leaving message
+                // function: printLeaveMessage
+
+            // NOTE: print note
+                // function: printNote
+
+            // SHUTDOWN: exit the receiver
+                // function: pthread_exit
 }
+
