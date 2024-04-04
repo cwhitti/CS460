@@ -48,7 +48,6 @@ ChatNodes* initializeChatNodeList( void )
   newData = ( ChatNodeList *)malloc( sizeof (ChatNodeList) );
 
   newData -> firstPtr = NULL;
-  newData -> lastPtr = NULL;
 
   return newData; // temp stub
 }
@@ -94,7 +93,6 @@ bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
       // free temp
 
       // return true
-  }
 
   return false; // temp stub
 }
