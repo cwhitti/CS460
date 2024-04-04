@@ -28,14 +28,14 @@ Dependencies: printf
 void printNote(Message* inMsg);
 
 /*
-Prints a message like "<name> joined the chat" for a JOINED
+Prints a message like "(!) <name> joined the chat" for a JOINED
 message type
 Dependencies: printf
 */
 void printJoinMessage(Message* inMsg);
 
 /*
-Prints a message like "<name> left the chat" for a LEAVING
+Prints a message like "(!) <name> left the chat" for a LEAVING
 message type
 Dependencies: printf
 */
