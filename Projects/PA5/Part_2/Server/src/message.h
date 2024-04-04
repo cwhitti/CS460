@@ -1,3 +1,5 @@
+#include "chat_node.h"
+
 typedef enum {
     JOIN = 0,
     LEAVE,
@@ -11,9 +13,9 @@ typedef enum {
 typedef char Note[64];
 
 typedef struct messageStruct {
-    message_type messageType;
-    chat_node* messageSender;
-    note noteContent;
+    MessageType messageType;
+    ChatNode* messageSender;
+    Note noteContent;
 } Message;
 
 /*

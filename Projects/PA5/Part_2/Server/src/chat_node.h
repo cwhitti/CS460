@@ -17,14 +17,14 @@ typedef struct chat_node_struct
 typedef struct chat_node_list_element_struct
 {
   ChatNode chat_node;
-  struct chat_node_list_element_struct* next;
+  ChatNode* next;
 } ChatNodeListElement;
 
 // ChatNodeList
 typedef struct chat_node_list_struct
 {
-  ChatNodeListElement* first;
-  ChatNodeListElement* last;
+  ChatNodeListElement* firstPtr;
+  ChatNodeListElement* lastPtr;
 } ChatNodeList;
 
 // create chat node from given data
