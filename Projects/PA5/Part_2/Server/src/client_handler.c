@@ -1,35 +1,58 @@
 // join function
-void clientJoin( ChatNodeList *clientList )
+void clientJoin( ChatNodeList *clientList, ChatNode* clientNode )
 {
+  // add client to clientList
+    // function: addChatNodeToList
 
-  // Add new chat node to linked list
-
+  // send join message to all clients
+    // function: globalJoining()
 }
 
 // leave function
-void clientLeave( ChatNodeList *clientList )
+void clientLeave( ChatNodeList *clientList, ChatNode* clientNode )
 {
-
   // client will stop receiving, can still send JOIN message
 
   // remove chat node
+    // function: removeNodeFromList
 
+  // send
+    // function: globalLeaving()
 }
 
 // note function
-void clientNote( ChatNodeList *clientList )
+void clientNote( ChatNodeList *clientList, ChatNode* clientNode, Note *outStr )
 {
+  // declare variables
 
-  // push notes to all clients
+  // loop through clientList
 
+    // if the current client != clientNode
+    // function: compareChatNodes()
+
+      // send message to everyone
+        // function: writeMessageToSocket( note )
 }
 
 // shutdown function
-void clientShutdown( ChatNodeList *clientList )
+void clientShutdown( ChatNodeList *clientList, ChatNode* clientNode )
 {
-  // client will stop sending or receiving
+  // declare variables
 
-  // remove chat node
+  // loop thrpugh clientList
+
+    // check if currentNode == clientNode
+
+      // Send client shutdown message
+        // function: writeMessageToSocket
+
+      // remove chat node
+
+    // otherwise
+
+      // send message to everyone that client left
+
+        // function: globalLeaving()
 
   // terminate connection with client
 }
@@ -40,20 +63,20 @@ void get_ip_address(const char *string, char *ip_string)
 }
 
 // joining function
-void globalJoining( ChatNodeList *clientList )
+void globalJoining( ChatNodeList *clientList, ChatNode *clientNode )
 {
   // push [USER JOIN] message to all clients
 }
 
 // leaving function
-void globalLeaving( ChatNodeList *clientList )
+void globalLeaving( ChatNodeList *clientList, ChatNode *clientNode )
 {
 
   // push [USER LEAVE] message to all clients
 
 }
 
-void globalShutdown( ChatNodeList *clientList )
+void globalShutdown( ChatNodeList *clientList, ChatNode *clientNode )
 {
 
 }
@@ -61,48 +84,42 @@ void globalShutdown( ChatNodeList *clientList )
 void* handle_client( void* args )
 {
   // initialize variables
-  struct ThreadArgs *threadArgs = (struct ThreadArgs *)args;
+  // struct ThreadArgs *threadArgs = (struct ThreadArgs *)args;
 
-  // read size of messageType
+  // grab client socket
+  // grab clientList
 
-  // read size of chatNode
+  // read entire message from socket, returns pointer to new msg struct
+    // function: readMessageFromSocket( )
 
-  // create copy of messageType
-
-  // process depending on msgType
+  // process depending on MessageType
 
     //  JOIN
 
-      // Add new chat node to linked list
+      // function: clientJoin()
 
     //  LEAVE
 
-      // client will stop receiving, can still send JOIN message
-
-      // remove chat node
+      // function: clientLeave()
 
     //  SHUTDOWN
 
-      // client will stop sending or receiving
-
-      // remove chat node
-
-      // terminate connection with client
+      // function: clientShutdown()
 
     //  SHUTDOWN_ALL
 
-      // remove all chat nodes
+      // function: globalShutdown()
 
     //  NOTE
 
-      // push notes to all clients
+      // function: clientNote()
 
     //  JOINING
 
-      // push [USER JOIN] message to all clients
+      // function: globalJoining()
 
     //  LEAVING
 
-      // push [USER LEAVE] message to all clients
+      // function: globalLeaving()
 
 }
