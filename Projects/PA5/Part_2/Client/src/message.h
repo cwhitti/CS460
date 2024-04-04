@@ -36,4 +36,18 @@ Dependencies: createMessageFromData
 */
 Message* createMessageFromMessage(Message* inMsg);
 
+/*
+Reads data from the socket, expecting message data, and returns
+pointer to new message
+Dependencies: read, createMessageFromData, createChatNodeFromData
+*/
+Message* readMessageFromSocket(int socket);
+
+/*
+Reads data from the socket, expecting message data, and returns
+pointer to new message
+Dependencies: write, createMessageFromData, createChatNodeFromData
+*/
+void writeMessageToSocket(int socket, Message* outMsg);
+
 #endif

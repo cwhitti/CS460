@@ -1,11 +1,11 @@
 #include "receiver_handler.h"
 
 /*
-Reads data from the socket, expecting message data, and returns
-pointer to new message
-Dependencies: read, createMessageFromData, createChatNodeFromData
+Implements loop of listening for messages from server. Expects a pointer
+to a socket as the argument.
+Dependencies: readMessageFromSocket, printf
 */
-Message* readMessageFromSocket(int socket)
+void* receiverLoop(void* arg)
 {
-    return NULL;
+    
 }

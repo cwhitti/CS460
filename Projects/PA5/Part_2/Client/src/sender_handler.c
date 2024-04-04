@@ -1,13 +1,13 @@
 #include "sender_handler.c"
 
 /*
-Reads data from the socket, expecting message data, and returns
-pointer to new message
-Dependencies: write, createMessageFromData, createChatNodeFromData
+Implements loop of listening for messages from server. Expects a pointer
+to a socket as the argument.
+Dependencies: parseMessage, writeMessageToSocket, scanf
 */
-void writeMessageToSocket(int socket, Message* outMsg)
+void* senderLoop(void* arg)
 {
-
+    
 }
 
 /*
