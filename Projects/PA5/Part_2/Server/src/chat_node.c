@@ -79,17 +79,13 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
                                                     char* name)
 {
   // declare variables
-  ChatNode *newNode;
 
   // allocate memory for newNode
-  newNode = ( ChatNode* )malloc( sizeof( ChatNode ) );
+
 
   // set data pieces
-  newNode -> ip = ip;
-  newNode -> port = port;
-  newNode -> name = name;
 
-  return newNode; // return newNode
+   // return newNode
 }
 
 /*
@@ -99,9 +95,7 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
 */
 void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 {
-  destNode -> ip = srcNode -> ip;
-  destNode -> port = srcNode -> port;
-  destNode -> name = srcNode -> name;
+
 }
 
 /*

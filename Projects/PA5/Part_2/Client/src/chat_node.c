@@ -9,25 +9,19 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
                                                     char* name)
 {
   // declare variables
-  ChatNode *newNode;
 
   // allocate memory for newNode
-  newNode = ( ChatNode* )malloc( sizeof( ChatNode ) );
+
 
   // set data pieces
-  newNode -> ip = ip;
-  newNode -> port = port;
-  newNode -> name = name;
 
-  return newNode; // return newNode
+   // return newNode
 }
 
 
 void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 {
-  destNode -> ip = srcNode -> ip;
-  destNode -> port = srcNode -> port;
-  destNode -> name = srcNode -> name;
+
 }
 /*
   Function: initializeChatNodeList
@@ -50,13 +44,6 @@ ChatNodes* initializeChatNodeList( void )
   return newData;
   */
 
-  ChatNodeList *newData;
-
-  newData = ( ChatNodeList *)malloc( sizeof (ChatNodeList) );
-
-  newData -> firstPtr = NULL;
-
-  return newData; // temp stub
 }
 
 /*
