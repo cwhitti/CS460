@@ -3,6 +3,8 @@
 
 #include "chat_node.h"
 
+#define NOTE_LEN 64
+
 typedef enum {
     JOIN = 0,
     LEAVE = 1,
@@ -13,11 +15,11 @@ typedef enum {
     LEAVING = 6
 } MessageType;
 
-typedef char Note[64];
+typedef char Note[NOTE_LEN];
 
 typedef struct messageStruct {
     MessageType messageType;
-    ChatNode* messageSender;
+    ChatNode messageSender;
     Note noteContent;
 } Message;
 
