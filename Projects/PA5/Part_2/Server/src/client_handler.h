@@ -17,10 +17,8 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj );
 // note function
 void clientNote( ChatNodeList *clientList, Message* messageObj );
 
-// shutdown function
-void clientShutdown( ChatNodeList *clientList, Message* messageObj );
-
-void get_ip_address(const char *string, char *ip_string);
+// general forward message function
+void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 
 // joining function
 void globalJoining( ChatNodeList *clientList, Message* messageObj );
