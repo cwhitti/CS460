@@ -88,6 +88,7 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
   newNode -> ip = ip;
   newNode -> port = port;
   newNode -> name = name;
+  newNode -> next = NULL;
 
   return newNode; // return newNode
 }
@@ -102,6 +103,7 @@ void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
   destNode -> ip = srcNode -> ip;
   destNode -> port = srcNode -> port;
   destNode -> name = srcNode -> name;
+  newNode -> next = srcNode -> next;
 }
 
 /*
@@ -169,7 +171,7 @@ int privateGetStringLen( const char *str )
 /*
   Function: removeNodeFromList
 
-  Purpose: Removes a chatNode to a list, returns success bool
+  Purpose: Removes a single chatNode from a list, returns success bool
 */
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
 {
@@ -216,7 +218,7 @@ bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
       return true;
     }
   }
-  return false; // temp stub
+  return false;
 }
 
 /*

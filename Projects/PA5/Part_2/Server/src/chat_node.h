@@ -13,21 +13,22 @@ typedef struct chat_node_struct
 {
   unsigned int ip;
   unsigned short int port;
-  char name[NAME_LEN];
+  char name[ NAME_LEN ];
+  chat_node_struct* next;
 } ChatNode;
 
 // ChatNodeListElement for building a list
-typedef struct chat_node_list_element_struct
-{
-  ChatNode chat_node;
-  struct chat_node_list_element_struct* next;
-} ChatNodeListElement;
+//typedef struct chat_node_list_element_struct
+//{
+//  ChatNode chat_node;
+//  struct chat_node_list_element_struct* next;
+//} ChatNodeListElement;
 
 // ChatNodeList
 typedef struct chat_node_list_struct
 {
-  ChatNodeListElement* firstPtr;
-  // ChatNodeListElement* lastPtr;
+  ChatNode* firstPtr;
+
 } ChatNodeList;
 
 
