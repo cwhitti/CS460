@@ -17,13 +17,15 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
 {
   // grab client from messageObj
 
-  // remove chat node
+  // if remove chat node
     // function: removeNodeFromList
 
-  // change msgtype from LEAVE > LEAVING
+    // change msgtype from LEAVE > LEAVING
 
-  // send
-    // function: globalLeaving()
+    // send
+      // function: globalLeaving()
+
+  // otherwise, do nothing
 }
 
 // note function
@@ -57,6 +59,7 @@ void clientShutdown( ChatNodeList *clientList, Message* messageObj )
         // function: writeMessageToSocket
 
       // remove chat node
+        // function: removeNodeFromList
 
     // otherwise
 
@@ -64,12 +67,11 @@ void clientShutdown( ChatNodeList *clientList, Message* messageObj )
 
         // function: globalLeaving()
 
-  // terminate connection with client
 }
 
 void get_ip_address(const char *string, char *ip_string)
 {
-
+  // unsure if needed
 }
 
 // joining function
@@ -107,6 +109,9 @@ void globalShutdown( ChatNodeList *clientList, Message* messageObj )
 
     // send message to everyone
       // function: writeMessageToSocket
+
+  // free linked list
+    // function: clearList
 }
 
 void* handle_client( void* args )

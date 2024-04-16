@@ -1,5 +1,75 @@
 #include "chat_node.h"
 
+
+/*
+  Function: addChatNodeToList
+
+  Purpose: Adds a chatNode to a list
+*/
+void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
+{
+  // declare variables
+  ChatNode *wkgPtr = chatNodeList -> firstPtr;
+
+  // ensure there is an item
+  if ( wkgPtr != NULL )
+  {
+    // iterate to end of list
+    while (wkgPtr -> next != NULL)
+    {
+      wkgPtr = wkgPtr -> next;
+    }
+
+    // set last item -> next to chatNode
+    wkgPtr -> next = chatNode;
+  }
+}
+
+/*
+  Function: clearChatNodeList
+
+  Purpose: Uses helper function to clear nodes, then list struct
+*/
+ChatNodeList* clearChatNodeList( ChatNodeList *list )
+{
+  clearChatNodeListHelper( list -> first );
+  free ( list );
+  return NULL;
+}
+
+/*
+  Function: clearChatNodeListHelper
+
+  Purpose: Recursively clears nodes
+*/
+ChatNodeList* clearChatNodeListHelper( ChatNode *wkgPtr )
+{
+  // loop through each item in the LL
+  if ( wkgPtr != NULL )
+  {
+   // recursively check the next item
+   clearChatNodeListHelper( wkgPtr -> next );
+
+   // the nodePtr's nextPtr = NULL so lets free this one too
+   free( wkgPtr );
+  }
+
+  // return nothing
+  return NULL;
+}
+
+/*
+  Function: compareChatNodes
+
+  Purpose: Compares two chat nodes, returns boolean success
+*/
+bool compareChatNodes( ChatNode* first, ChatNode* second )
+{
+  return ( first -> ip == second --> ip &&
+            first -> port == first --> port &&
+              compareStrings( first -> name, second -> name ) == 0 )
+}
+
 /*
   Function: createChatNodeFromData
 
@@ -22,53 +92,78 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
   return newNode; // return newNode
 }
 
+/*
+  Function: deepCopyChatNode
 
+  Purpose: Copies one node to another
+*/
 void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 {
   destNode -> ip = srcNode -> ip;
   destNode -> port = srcNode -> port;
   destNode -> name = srcNode -> name;
 }
+
 /*
   Function: initializeChatNodeList
 
   Purpose: Initializes list of chat nodes
 */
-ChatNodes* initializeChatNodeList( void )
+ChatNodeList* initializeChatNodeList( void )
 {
   // allocate memory for ChatNodeList struct
-
-  /*
-  EXAMPLE FROM CS249:
-
-  StateLLType *newData;
-
-  newData = ( StateLLType * )malloc( sizeof( StateLLType ) );
-
-  newData -> headPtr = NULL;
-
-  return newData;
-  */
-
   ChatNodeList *newData;
 
   newData = ( ChatNodeList *)malloc( sizeof (ChatNodeList) );
 
   newData -> firstPtr = NULL;
 
-  return newData; // temp stub
+  return newData;
 }
 
 /*
-  Function: addChatNodeToList
+  Function: privateCompareStrings
 
-  Purpose: Adds a chatNode to a list
+  Purpose: compares two strings
 */
-void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
+int privateCompareStrings( const char *leftStr, const char *rightStr )
 {
-  // grab last item
+  int diff, index = 0;
+  int leftStrLen = privateGetStringLen( leftStr );
+  int rightStrLen = privateGetStringLen( rightStr );
 
-  // set last item -> lastPtr to chatNode
+  while( index < leftStrLen && index < rightStrLen )
+  {
+    diff = leftStr[ index ] - ( rightStr[ index ] );
+
+    if( diff != 0 )
+    {
+      return diff;
+    }
+
+    index = index + 1;
+  }
+  return leftStrLen - rightStrLen;
+}
+
+/*
+  Function: privateGetStringLen
+
+  Purpose: Gets the length of a string
+*/
+int privateGetStringLen( const char *str )
+{
+ // declare variables
+ int index = 0;
+
+ // copies string character for character up to NULL_CHAR of source string
+ while (str[index] != NULL_CHAR)
+ {
+  index = index + 1; // increment index
+ }
+
+ // return index
+ return index;
 }
 
 /*
@@ -79,66 +174,80 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
 {
   // declare variables
-  // ChatNode *temp, *parentNode;
+  ChatNode *temp, *parentNode;
+  ChatNode *wkgPtr = chatNodeList -> first;
 
-  // check for chatNodeList
-
+  // check for wkgPtr != NULL
+  if ( wkgPtr != NULL )
+  {
     // Special case: chatNode is first
+    if ( compareChatNodes ( wkgPtr, chatNode ) )
+    {
+      // Set temp to chatNodeList -> first
+      temp = chatNodeList -> first;
 
-    // Special case: chatNode is last
+      // Set chatNodeList -> first to chatNodeList -> first -> next
+      chatNodeList -> first = temp -> next;
 
-    // grab parent node
-      // FUNCTION: removeNodeFromListHelper
-      // parentNode = removeNodeFromListHelper(chatNodeList, chatNode, compareNode);
-
-    // if parentNode != NULL
-
-      // set  temp to parentNode -> next
-
-      // set parentNode -> next = chatNode
-
-      // free temp
+      // clear temp
+      clear( temp );
 
       // return true
+      return true;
+    }
 
+    // grab parent node
+      // function: removeNodeFromListHelper
+    parentNode = removeNodeFromListHelper( wkgPtr, chatNode );
+
+    // if parentNode != NULL
+    if ( parentNode != NULL )
+    {
+      // set temp to parentNode -> next
+      temp = parentNode -> next;
+
+      // set parentNode -> next = temp -> next
+      parentNode -> next = temp -> next;
+
+      // free temp
+      free( temp );
+
+      // return true
+      return true;
+    }
+  }
   return false; // temp stub
-}
-
-ChatNode* removeNodeFromListHelper( ChatNodeList* chatNodeList,
-                                        ChatNode* parentNode,
-                                            ChatNode *compareNode)
-{
-  // declare variables
-
-  // iterate through list
-
-    // grab child node
-
-    // Check if childNode != NULL
-
-      // If compare child ptr to cmpNode
-
-        // return parentNode
-
-      // increment wkgPtr
-
-  // return NULL
-  return NULL;
-
 }
 
 /*
-  Function: compareChatNodes
+  Function: removeNodeFromListHelper
 
-  Purpose: Compares two chat nodes, returns success
+  Purpose: Recursively tries to find parentNode for remove function
 */
-bool compareChatNodes( ChatNode* first, ChatNode* second )
+ChatNode* removeNodeFromListHelper( ChatNode* wkgPtr, ChatNode *compareNode)
 {
-  // compare name to name
+  // declare variables
+  ChatNode *childPtr;
 
-  // compare ip to ip
+  // iterate through list
+  if ( wkgPtr != NULL )
+  {
+    // grab childPtr
+    childPtr = wkgPtr -> next;
 
-  // compare port to port
+    // short circuit, and compare child
+    if ( childPtr != NULL && compareChatNodes( childPtr, compareNode ) )
+    {
+      return wkgPtr; // parent found
+    }
 
-  return false; // temp stub
+    // check to move down one more
+    else if ( childPtr != NULL)
+    {
+      return removeNodeFromListHelper( childPtr, compareNode );
+    }
+
+    // node not found! fall through
+  }
+  return NULL;
 }
