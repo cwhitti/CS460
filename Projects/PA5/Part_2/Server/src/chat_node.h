@@ -30,24 +30,22 @@ typedef struct chat_node_list_struct
   // ChatNodeListElement* lastPtr;
 } ChatNodeList;
 
+// create chat node from given data
+ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
+                                                    char* name);
 
+void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode);
 
-void          addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode );
-
-ChatNodeList* clearChatNodeList( ChatNodeList* list );
-ChatNodeList* clearChatNodeListHelper( ChatNode *wkgPtr );
-bool          compareChatNodes( ChatNode* first, ChatNode* second );
-ChatNode*     createChatNodeFromData( unsigned int ip, unsigned short int port,char* name);
-
-void          deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode);
-
+// create a chat node list
 ChatNodeList* initializeChatNodeList( void );
 
-int           privateCompareStrings( const char *leftStr, const char *rightStr );
-int           privateGetStringLen( const char *str );
+void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode );
+bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode);
 
-bool          removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode);
-ChatNode*     removeNodeFromListHelper( ChatNode* parentNode, ChatNode *compareNode );
+ChatNode* removeNodeFromListHelper( ChatNodeList* chatNodeList,
+                                        ChatNode* parentNode,
+                                            ChatNode *compareNode);
 
+bool compareChatNodes( ChatNode* first, ChatNode* second );
 
 #endif
