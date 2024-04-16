@@ -17,6 +17,7 @@
 #include "chat_node.h"
 
 #define NOTE_LEN 64
+#define NULL_CHAR '\0'
 
 typedef enum {
     JOIN = 0,
