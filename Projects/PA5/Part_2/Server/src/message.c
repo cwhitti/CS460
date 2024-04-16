@@ -46,7 +46,7 @@ Message* readMessageFromSocket(int socket)
     Message* newMessage;
 
     // read all raw data
-    completeRead(socket, (void*)&inMsgType, sizeof(unsigned int));
+    completeRead(socket, (void*)&inMsgType, sizeof(inMsgType));
     completeRead(socket, (void*)&inIp, sizeof(inIp));
     completeRead(socket, (void*)&inPort, sizeof(inPort));
     completeRead(socket, (void*)inName, NAME_LEN);
@@ -103,11 +103,11 @@ void writeMessageToSocket(int socket, Message* outMsg)
     unsigned short int outPort = htonl(outMsg->messageSender.port);
 
     // write message type
-    write(socket, &(outMsgType), sizeof(unsigned int));
+    write(socket, &(outMsgType), sizeof(outMsgType));
 
     // write chat node info
-    write(socket, &(outIp), sizeof(outMsg->messageSender.ip));
-    write(socket, &(outPort), sizeof(outMsg->messageSender.port));
+    write(socket, &(outIp), sizeof(outIp));
+    write(socket, &(outPort), sizeof(outPort));
     write(socket, &(outMsg->messageSender.name), NAME_LEN);
 
     // write note content
