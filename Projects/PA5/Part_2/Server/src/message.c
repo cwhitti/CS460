@@ -36,7 +36,7 @@ Dependencies: completeRead, createMessageFromData, createChatNodeFromData
 */
 Message* readMessageFromSocket(int socket)
 {
-    int inMsgType;
+    unsigned int inMsgType;
     unsigned int inIp;
     unsigned short int inPort;
     char inName[NAME_LEN];
@@ -46,15 +46,15 @@ Message* readMessageFromSocket(int socket)
     Message* newMessage;
 
     // read all raw data
-    completeRead(socket, (void*)&inMsgType, sizeof(inMsgType));
+    completeRead(socket, (void*)&inMsgType, sizeof(unsigned int));
     completeRead(socket, (void*)&inIp, sizeof(inIp));
     completeRead(socket, (void*)&inPort, sizeof(inPort));
     completeRead(socket, (void*)inName, NAME_LEN);
     completeRead(socket, (void*)inNote, NOTE_LEN);
 
     // convert raw data into data structures
-    newChatNode = createChatNodeFromData(inIp, inPort, inName);
-    newMessage = createMessageFromData(inMsgType, newChatNode, inNote);
+    newChatNode = createChatNodeFromData(ntohl(inIp), ntohs(inPort), inName);
+    newMessage = createMessageFromData(ntohl(inMsgType), newChatNode, inNote);
 
     // return new message
     return newMessage;
@@ -97,12 +97,17 @@ Dependencies: write
 */
 void writeMessageToSocket(int socket, Message* outMsg)
 {
+    // apply network macros to appropriate values
+    unsigned int outMsgType = htonl(outMsg->messageType);
+    unsigned int outIp = htons(outMsg->messageSender.ip);
+    unsigned short int outPort = htonl(outMsg->messageSender.port);
+
     // write message type
-    write(socket, &(outMsg->messageType), sizeof(outMsg->messageType));
+    write(socket, &(outMsgType), sizeof(unsigned int));
 
     // write chat node info
-    write(socket, &(outMsg->messageSender.ip), sizeof(outMsg->messageSender.ip));
-    write(socket, &(outMsg->messageSender.port), sizeof(outMsg->messageSender.port));
+    write(socket, &(outIp), sizeof(outMsg->messageSender.ip));
+    write(socket, &(outPort), sizeof(outMsg->messageSender.port));
     write(socket, &(outMsg->messageSender.name), NAME_LEN);
 
     // write note content
