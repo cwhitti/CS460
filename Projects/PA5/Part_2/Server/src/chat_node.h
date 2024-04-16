@@ -7,6 +7,7 @@
 #include <stdbool.h>
 
 #define NAME_LEN 16
+#define NULL_CHAR '\0'
 
 // ChatNode w/ IP, Port, logical name
 typedef struct chat_node_struct
@@ -14,7 +15,7 @@ typedef struct chat_node_struct
   unsigned int ip;
   unsigned short int port;
   char name[ NAME_LEN ];
-  chat_node_struct* next;
+  struct chat_node_struct* next;
 } ChatNode;
 
 // ChatNodeListElement for building a list

@@ -9,8 +9,9 @@ int main(int argc, char** argv)
 {
     int server_socket;                 // descriptor of server socket
     struct sockaddr_in server_address; // for naming the server's listening socket
-    struct ThreadArgs threadArgs; // create thread args
+    ThreadArgs threadArgs; // create thread args
     ChatNodeList* clientList; // TODO: initialize data for clientList
+    int yes = 1;
 
     clientList = initializeChatNodeList();
 

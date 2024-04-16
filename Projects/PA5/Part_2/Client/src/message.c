@@ -4,14 +4,14 @@
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
 */
-Message* createMessageFromData(MessageType* inMsgType, 
-                               ChatNode inMsgSender,
+Message* createMessageFromData(MessageType inMsgType, 
+                               ChatNode* inMsgSender,
                                Note inNoteContent)
 {
     Message* newMessage = (Message*)malloc(sizeof(Message));
     newMessage->messageType = inMsgType;
-    deepCopyChatNode(&(newMessage->chatNode), &inMsgSender);
-    strncpy(&(newMessage->noteContent), inNoteContent, NOTE_LEN);
+    deepCopyChatNode(&(newMessage->messageSender), inMsgSender);
+    strncpy((char*)&(newMessage->noteContent), (char*)inNoteContent, NOTE_LEN);
 
     return newMessage;
 }
@@ -24,7 +24,7 @@ Dependencies: createMessageFromData
 Message* createMessageFromMessage(Message* inMsg)
 {
     return createMessageFromData(inMsg->messageType,
-                                 inMsg->messageSender,
+                                 &(inMsg->messageSender),
                                  inMsg->noteContent);
 }
 
@@ -53,7 +53,7 @@ Message* readMessageFromSocket(int socket)
 
     // convert raw data into data structures
     newChatNode = createChatNodeFromData(inIp, inPort, inName);
-    newMessage = createMessageFromData(inMsgType, *newChatNode, inNote);
+    newMessage = createMessageFromData(inMsgType, newChatNode, inNote);
 
     // return new message
     return newMessage;

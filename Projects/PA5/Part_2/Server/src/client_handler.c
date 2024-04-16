@@ -1,3 +1,5 @@
+#include "client_handler.h"
+
 // join function
 void clientJoin( ChatNodeList *clientList, Message* messageObj )
 {
@@ -6,10 +8,10 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
 
   // add client to clientList
     // function: addChatNodeToList
-  addChatNodeToList(clientList, clientNode);
+  addChatNodeToList(clientList, &clientNode);
 
   // change msgtype from JOIN > JOINED
-  messageObj->messageType = JOINED;
+  messageObj->messageType = JOINING;
 
   // send join message to all clients
     // function: forwardMessage()
@@ -24,14 +26,14 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
 
   // remove chat node
     // function: removeNodeFromList
-  if (removeNodeFromList(clientList, clientNode))
+  if (removeNodeFromList(clientList, &clientNode))
   {
     // change msgtype from LEAVE > LEAVING
     messageObj->messageType = LEAVING;
 
     // send
       // function: forwardMessage()
-    forwardMessage();
+    forwardMessage(clientList, messageObj);
   }
 }
 
@@ -58,7 +60,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip); 
       clientAddress.sin_port = htons(wkgPtr->port); 
 
-      if (connect(send, (struct sockaddr *)&clientAddress,
+      if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
       {
         writeMessageToSocket(sendSocket, messageObj);
@@ -66,6 +68,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
     }
 }
 
+/*
 // note function
 void clientNote( ChatNodeList *clientList, Message* messageObj )
 {
@@ -79,7 +82,7 @@ void clientNote( ChatNodeList *clientList, Message* messageObj )
   for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
     // if the current client != clientNode
     // function: compareChatNodes()
-    if ( !compareChatNodes(wkgPtr &clientNode) )
+    if ( !compareChatNodes(wkgPtr, &clientNode) )
     {
       // send message to everyone
         // function: writeMessageToSocket( note )
@@ -154,49 +157,61 @@ void globalShutdown( ChatNodeList *clientList, Message* messageObj )
   // clear list
     // function: clearChatNodeList
 }
-
+*/
 void* handle_client( void* args )
 {
   // initialize variables
-  // struct ThreadArgs *threadArgs = (struct ThreadArgs *)args;
+  ThreadArgs *threadArgs = (ThreadArgs *)args;
+
 
   // grab client socket
+  int clientSocket = threadArgs->clientSocket;
   // grab clientList
+  ChatNodeList* clientList = threadArgs->clientList;
 
   // read entire message from socket, returns pointer to new msg struct
     // function: readMessageFromSocket( )
-  // messageObj = readMessageFromSocket( )
+  Message* messageObj = readMessageFromSocket( clientSocket );
 
   // process depending on MessageType
-
+  switch (messageObj->messageType)
+  {
     //  JOIN
-
+    case JOIN:
       // function: clientJoin()
+      clientJoin(clientList, messageObj);
 
     //  LEAVE
-
+    case LEAVE:
       // function: clientLeave()
+      clientLeave(clientList, messageObj);
 
     //  SHUTDOWN
-
+    case SHUTDOWN:
       // function: clientLeave()
+      clientLeave(clientList, messageObj);
 
     //  SHUTDOWN_ALL
-
+    case SHUTDOWN_ALL:
       // function: forwardMessage()
+      forwardMessage(clientList, messageObj);
 
       // function: clearChatNodeList()
+      clearChatNodeList(clientList);
 
     //  NOTE
-
+    case NOTE:
       // function: forwardMessage()
+      forwardMessage(clientList, messageObj);
 
     //  JOINING
-
+    case JOINING:
       // function: forwardMessage()
+      forwardMessage(clientList, messageObj);
 
     //  LEAVING
-
+    case LEAVING:
       // function: forwardMessage()
-
+      forwardMessage(clientList, messageObj);
+  }
 }

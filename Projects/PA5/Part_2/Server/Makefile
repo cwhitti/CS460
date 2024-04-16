@@ -1,6 +1,6 @@
 # Many thanks to Job Vranish - see https://spin.atomicobject.com/2016/08/26/makefile-c-projects/
 
-TARGET_EXEC := chat_client
+TARGET_EXEC := chat_server
 
 BUILD_DIR := ./build
 SRC_DIRS  := ./src

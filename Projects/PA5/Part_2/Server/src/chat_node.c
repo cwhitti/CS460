@@ -32,7 +32,7 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 */
 ChatNodeList* clearChatNodeList( ChatNodeList *list )
 {
-  clearChatNodeListHelper( list -> first );
+  clearChatNodeListHelper( list -> firstPtr );
   free ( list );
   return NULL;
 }
@@ -65,9 +65,9 @@ ChatNodeList* clearChatNodeListHelper( ChatNode *wkgPtr )
 */
 bool compareChatNodes( ChatNode* first, ChatNode* second )
 {
-  return ( first -> ip == second --> ip &&
-            first -> port == first --> port &&
-              compareStrings( first -> name, second -> name ) == 0 )
+  return ( first -> ip == second -> ip &&
+            first -> port == first -> port &&
+              privateCompareStrings( first -> name, second -> name ) == 0 );
 }
 
 /*
@@ -87,7 +87,7 @@ ChatNode* createChatNodeFromData( unsigned int ip, unsigned short int port,
   // set data pieces
   newNode -> ip = ip;
   newNode -> port = port;
-  newNode -> name = name;
+  strncpy(newNode -> name, name, NAME_LEN);
   newNode -> next = NULL;
 
   return newNode; // return newNode
@@ -102,8 +102,8 @@ void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 {
   destNode -> ip = srcNode -> ip;
   destNode -> port = srcNode -> port;
-  destNode -> name = srcNode -> name;
-  newNode -> next = srcNode -> next;
+  strncpy(destNode->name, srcNode->name, NAME_LEN);
+  destNode -> next = srcNode -> next;
 }
 
 /*
@@ -177,7 +177,7 @@ bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
 {
   // declare variables
   ChatNode *temp, *parentNode;
-  ChatNode *wkgPtr = chatNodeList -> first;
+  ChatNode *wkgPtr = chatNodeList -> firstPtr;
 
   // check for wkgPtr != NULL
   if ( wkgPtr != NULL )
@@ -186,13 +186,13 @@ bool removeNodeFromList( ChatNodeList* chatNodeList, ChatNode *chatNode)
     if ( compareChatNodes ( wkgPtr, chatNode ) )
     {
       // Set temp to chatNodeList -> first
-      temp = chatNodeList -> first;
+      temp = chatNodeList -> firstPtr;
 
       // Set chatNodeList -> first to chatNodeList -> first -> next
-      chatNodeList -> first = temp -> next;
+      chatNodeList -> firstPtr = temp -> next;
 
       // clear temp
-      clear( temp );
+      free( temp );
 
       // return true
       return true;

@@ -1,6 +1,19 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <syslog.h>
+#include <signal.h>
+#include <netdb.h>
+
 #include "chat_node.h"
 
 #define NOTE_LEN 64
@@ -51,5 +64,11 @@ pointer to new message
 Dependencies: write, createMessageFromData, createChatNodeFromData
 */
 void writeMessageToSocket(int socket, Message* outMsg);
+
+/*
+Helper function to ensure complete reads
+Dependencies: read
+*/
+int completeRead(int socket, void* buffer, unsigned int size);
 
 #endif

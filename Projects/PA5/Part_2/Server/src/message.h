@@ -1,7 +1,22 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <syslog.h>
+#include <signal.h>
+#include <netdb.h>
+
 #include "chat_node.h"
+
+#define NOTE_LEN 64
 
 typedef enum {
     JOIN = 0,
@@ -13,11 +28,11 @@ typedef enum {
     LEAVING = 6
 } MessageType;
 
-typedef char Note[64];
+typedef char Note[NOTE_LEN];
 
 typedef struct messageStruct {
     MessageType messageType;
-    ChatNode* messageSender;
+    ChatNode messageSender;
     Note noteContent;
 } Message;
 
@@ -25,7 +40,7 @@ typedef struct messageStruct {
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
 */
-Message* createMessageFromData(MessageType inMsgType,
+Message* createMessageFromData(MessageType inMsgType, 
                                ChatNode* inMsgSender,
                                Note inNoteContent);
 
@@ -49,5 +64,11 @@ pointer to new message
 Dependencies: write, createMessageFromData, createChatNodeFromData
 */
 void writeMessageToSocket(int socket, Message* outMsg);
+
+/*
+Helper function to ensure complete reads
+Dependencies: read
+*/
+int completeRead(int socket, void* buffer, unsigned int size);
 
 #endif
