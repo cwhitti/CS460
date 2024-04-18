@@ -1,4 +1,4 @@
-#include "sender_handler.c"
+#include "sender_handler.h"
 
 /*
 Implements loop of listening for messages from server. Expects a pointer
