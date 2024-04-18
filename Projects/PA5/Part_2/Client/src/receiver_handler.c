@@ -7,6 +7,12 @@ Dependencies: readMessageFromSocket, printf
 */
 void* receiverLoop(void* arg)
 {
+    // cast argument to ChatNode**
+
+    // extract my chat node
+
+    // set up a socket with my chat node info and start listening
+
     // receiver loop
 
         // accept a new connection from server

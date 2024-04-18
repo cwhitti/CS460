@@ -7,37 +7,45 @@ int main(int argc, char** argv)
 
     struct sockaddr_in clientAddress;
     char clientIPString[INET_ADDRSTRLEN] ;
-    int senderPort;
-    int receiverPort;
+    int myPort;
     char myName[NAME_LEN];
-    ChatNode* myChatNode;
 
     struct sockaddr_in serverAddress;
     char serverIPString[INET_ADDRSTRLEN] ;
     int serverPort;
+    char* serverName = "SERVER";
 
-    SenderArgs* senderArgs;
     Properties* properties;
+    ChatNode** chatNodes;
 
     // read properties
-    if (argc != 1)
+    if (argc != 2)
     {
         printf("Must include properties file name in arguments!\n");
         exit(EXIT_FAILURE);
     }
 
-    properties = property_read_properties(argv[0]);
+    properties = property_read_properties(argv[1]);
 
     // get string properties
     strncpy(clientIPString, property_get_property(properties, "MY_IP"), INET_ADDRSTRLEN);
-    strncpy(clientIPString, property_get_property(properties, "SERVER_IP"), INET_ADDRSTRLEN);
-    strncpy(myName, property_get_property(properties, "NAME"), NAME_LEN);
+    strncpy(serverIPString, property_get_property(properties, "SERVER_IP"), INET_ADDRSTRLEN);
+    strncpy(myName, property_get_property(properties, "MY_NAME"), NAME_LEN);
 
     // get int properties
-    sscanf(property_get_property(properties, "MY_SENDING_PORT"), "%d", &senderPort);
-    sscanf(property_get_property(properties, "MY_RECEIVING_PORT"), "%d", &receiverPort);
-    sscanf(property_get_property(properties, "MY_RECEIVING_PORT"), "%d", &serverPort);
+    sscanf(property_get_property(properties, "MY_PORT"), "%d", &myPort);
+    sscanf(property_get_property(properties, "SERVER_PORT"), "%d", &serverPort);
 
+    // set chat node array
+    chatNodes[0] = createChatNodeFromData((unsigned int)inet_addr(clientIPString),
+                                          (unsigned short int)myPort,
+                                           myName);
+
+    chatNodes[1] = createChatNodeFromData((unsigned int)inet_addr(serverIPString),
+                                          (unsigned short int)serverPort,
+                                           serverName);
+
+    /*
     // set server address struct
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_addr.s_addr = inet_addr(serverIPString);
@@ -46,7 +54,8 @@ int main(int argc, char** argv)
     // set client address struct
     clientAddress.sin_family = AF_INET;
     clientAddress.sin_addr.s_addr = htonl(INADDR_ANY); 
-    clientAddress.sin_port = htons(receiverPort); 
+    clientAddress.sin_port = htons(receiverPort);
+    */ 
 
     /***************
      Start receiver
@@ -55,6 +64,7 @@ int main(int argc, char** argv)
     // create receiving socket
     receivingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+    /*
     // bind receiving socket
     if (bind(receivingSocket, (struct sockaddr *)&clientAddress, sizeof(clientAddress)) != 0)
     {
@@ -68,14 +78,16 @@ int main(int argc, char** argv)
         perror("Error listening on socket");
         exit(EXIT_FAILURE);
     }
+    */
 
     // start listening for messages from server
-    pthread_create(&receivingThread, NULL, receiverLoop, (void*)&receivingSocket);
+    pthread_create(&receivingThread, NULL, receiverLoop, (void*)chatNodes);
 
     /*************
      Start sender
     **************/
 
+    /*
     // create sending socket
     sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -86,13 +98,8 @@ int main(int argc, char** argv)
         perror("Error connecting to server!\n");
         exit(EXIT_FAILURE);
     }
-
-    // initialize chat node with our information
-        // function: createChatNodeFromData
-     myChatNode = createChatNodeFromData(inet_addr(clientIPString), senderPort, myName);
-     senderArgs->sendingSocket = sendingSocket;
-     senderArgs->myChatNode = myChatNode;
+    */
 
     // start sending messages to server
-    pthread_create(&sendingThread, NULL, senderLoop, (void*)senderArgs);
+    pthread_create(&sendingThread, NULL, senderLoop, (void*)chatNodes);
 }

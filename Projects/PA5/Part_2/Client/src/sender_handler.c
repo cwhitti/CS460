@@ -7,7 +7,9 @@ Dependencies: parseMessage, writeMessageToSocket, scanf
 */
 void* senderLoop(void* arg)
 {   
-    // get arguments from struct
+    // cast argument to ChatNode**
+
+    // extract my chat node and the server chat node
 
     // initialize message
 
@@ -22,8 +24,10 @@ void* senderLoop(void* arg)
         // write data from string to message struct, check for success
             // function: parseMessage
 
-            // if successful, then write the message to the server
-                // function: writeMessageToServer
+            // set up socket to connect to server
+
+                // if successful, write message to the socket
+                    // function: writeMessageToSocket
 
     // exit thread
         // function: pthread_exit
