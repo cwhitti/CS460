@@ -60,11 +60,11 @@ int main(int argc, char** argv)
     /***************
      Start receiver
     ****************/
-
+    
+    /*
     // create receiving socket
     receivingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    /*
     // bind receiving socket
     if (bind(receivingSocket, (struct sockaddr *)&clientAddress, sizeof(clientAddress)) != 0)
     {
