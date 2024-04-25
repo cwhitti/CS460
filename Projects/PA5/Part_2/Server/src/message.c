@@ -53,7 +53,7 @@ Message* readMessageFromSocket(int socket)
     completeRead(socket, (void*)inNote, NOTE_LEN);
 
     // convert raw data into data structures
-    newChatNode = createChatNodeFromData(ntohl(inIp), ntohs(inPort), inName);
+    newChatNode = createChatNodeFromData(inIp, ntohs(inPort), inName);
     newMessage = createMessageFromData(ntohl(inMsgType), newChatNode, inNote);
 
     // return new message
