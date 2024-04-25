@@ -21,12 +21,12 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
     }
 
     // set last item -> next to chatNode
-    wkgPtr -> next = chatNode;
+    wkgPtr->next = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
   }
 
   else
   {
-    chatNodeList -> firstPtr = chatNode;
+    chatNodeList -> firstPtr = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
   }
 
 }
@@ -129,6 +129,8 @@ void displayLinkedList( ChatNodeList* chatNodeList )
     {
       printf( "|\nv\n" );
     }
+
+    wkgPtr = wkgPtr->next;
   }
 }
 

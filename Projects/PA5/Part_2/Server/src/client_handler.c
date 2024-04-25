@@ -190,16 +190,19 @@ void* handle_client( void* args )
       printf("%s joined\n", messageObj->messageSender.name);
       clientJoin(clientList, messageObj);
       printf("Finsihed joining\n");
+      break;
 
     //  LEAVE
     case LEAVE:
       // function: clientLeave()
       clientLeave(clientList, messageObj);
+      break;
 
     //  SHUTDOWN
     case SHUTDOWN:
       // function: clientLeave()
       clientLeave(clientList, messageObj);
+      break;
 
     //  SHUTDOWN_ALL
     case SHUTDOWN_ALL:
@@ -208,21 +211,26 @@ void* handle_client( void* args )
 
       // function: clearChatNodeList()
       clearChatNodeList(clientList);
+      break;
 
     //  NOTE
     case NOTE:
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
+      break;
 
     //  JOINING
     case JOINING:
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
+      break;
 
     //  LEAVING
     case LEAVING:
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
+      break;
   }
 
+  displayLinkedList( clientList );
 }
