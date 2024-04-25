@@ -16,7 +16,7 @@ int main(int argc, char** argv)
     char* serverName = "SERVER";
 
     Properties* properties;
-    ChatNode*[2] chatNodes;
+    ChatNode** chatNodes = (ChatNode**)malloc( sizeof(ChatNode*) * 2 );
 
     // read properties
     if (argc != 2)
@@ -45,7 +45,6 @@ int main(int argc, char** argv)
                                           (unsigned short int)serverPort,
                                            serverName);
 
-    printf("test\n");
     /*
     // set server address struct
     serverAddress.sin_family = AF_INET;
@@ -102,5 +101,6 @@ int main(int argc, char** argv)
     */
 
     // start sending messages to server
-    pthread_create(&sendingThread, NULL, senderLoop, (void*)chatNodes);
+    senderLoop((void*)chatNodes);
+    //pthread_create(&sendingThread, NULL, senderLoop, (void*)chatNodes);
 }
