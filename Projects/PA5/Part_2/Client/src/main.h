@@ -3,6 +3,7 @@
 #include "receiver_handler.h"
 #include "sender_handler.h"
 #include "properties.h"
+#include "chat_node.h"
 
 #define NUM_CONNECTIONS 20
 
