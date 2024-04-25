@@ -77,6 +77,11 @@ int main(int argc, char** argv)
     {
         // accept connection to client
         int client_socket = accept(server_socket, NULL, NULL);
+
+        if (client_socket == -1) {
+            perror("Error accepting connection");
+            continue;
+        }
         //printf("\nServer with PID %d: accepted client\n", getpid());
 
         // assign clientSocket to threadArgs

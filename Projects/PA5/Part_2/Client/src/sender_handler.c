@@ -28,36 +28,42 @@ void* senderLoop(void* arg)
     deepCopyChatNode( &msgStrct.messageSender, clientNode );
     msgStrct.messageType = NOTE;
 
+    // create sending socket
+    sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
+
+    printf("Created socket!\n");
+
+    // connect sending socket to server socket
+    if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
+                                                        sizeof(serverAddress)) == -1)
+        {
+            perror("Error connecting to server!\n");
+            exit(EXIT_FAILURE);
+        }
+
+    printf("Connected!\n");
+
     // loop until message is a SHUTDOWN or SHUTDOWN_ALL
     while ( msgStrct.messageType !=  SHUTDOWN ||
             msgStrct.messageType !=  SHUTDOWN_ALL )
     {
         // read string from command line
             // function: scanf
-        printf("Hello\n");
+        //printf("Hello\n");
+        //strcpy(msgStrct.noteContent, "JOIN");
 
         fgets(msgStrct.noteContent, NOTE_LEN, stdin );
-
+        
         // write data from string to message struct, check for success
             // function: parseMessage
             parseMessage( msgStrct.noteContent, &msgStrct );
 
-            // set up socket to connect to server
-
-            // create sending socket
-            sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-            // connect sending socket to server socket
-            if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
-                                                        sizeof(serverAddress)) == -1)
-            {
-                perror("Error connecting to server!\n");
-                exit(EXIT_FAILURE);
-            }
+            printf("Parsed messge!\n");
 
             // if successful, write message to the socket
                 // function: writeMessageToSocket
                 writeMessageToSocket( sendingSocket, &msgStrct);
+            printf("Wrote message!\n");
       }
     // exit thread
         // function: pthread_exit
