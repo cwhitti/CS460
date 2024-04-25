@@ -57,8 +57,8 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 
       struct sockaddr_in clientAddress;
       clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip); 
-      clientAddress.sin_port = htons(wkgPtr->port); 
+      clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip);
+      clientAddress.sin_port = htons(wkgPtr->port);
 
       if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
@@ -90,8 +90,8 @@ void clientNote( ChatNodeList *clientList, Message* messageObj )
 
       struct sockaddr_in clientAddress;
       clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip); 
-      clientAddress.sin_port = htons(wkgPtr->chat_node.port); 
+      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip);
+      clientAddress.sin_port = htons(wkgPtr->chat_node.port);
 
       if (connect(send, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
@@ -119,8 +119,8 @@ void globalJoining( ChatNodeList *clientList, Message* messageObj )
 
       struct sockaddr_in clientAddress;
       clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip); 
-      clientAddress.sin_port = htons(wkgPtr->chat_node.port); 
+      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip);
+      clientAddress.sin_port = htons(wkgPtr->chat_node.port);
 
       if (connect(send, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
@@ -171,6 +171,7 @@ void* handle_client( void* args )
   pthread_mutex_t* llLock = threadArgs->llLock;
 
   pthread_mutex_unlock(mainLock);
+  pthread_mutex_unlock(llLock);
 
   printf("Client accepted!\n");
 
@@ -220,5 +221,4 @@ void* handle_client( void* args )
       forwardMessage(clientList, messageObj);
   }
 
-  pthread_mutex_unlock(llLock);
 }
