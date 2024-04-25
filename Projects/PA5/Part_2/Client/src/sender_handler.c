@@ -32,7 +32,7 @@ void* senderLoop(void* arg)
             // create sending socket
         sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-        printf("Created socket!\n");
+        //printf("Created socket!\n");
 
         // connect sending socket to server socket
         if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
@@ -42,7 +42,7 @@ void* senderLoop(void* arg)
                 exit(EXIT_FAILURE);
             }
 
-        printf("Connected!\n");
+        //printf("Connected!\n");
     
     // loop until message is a SHUTDOWN or SHUTDOWN_ALL
     while ( msgStrct.messageType !=  SHUTDOWN &&
@@ -50,7 +50,7 @@ void* senderLoop(void* arg)
     {
         // read string from command line
             // function: scanf
-        printf("Enter something: ");
+       //printf("Enter something: ");
         //strcpy(msgStrct.noteContent, "JOIN");
 
         fgets(msgStrct.noteContent, NOTE_LEN, stdin );
@@ -59,12 +59,12 @@ void* senderLoop(void* arg)
             // function: parseMessage
             parseMessage( msgStrct.noteContent, &msgStrct );
 
-            printf("Parsed messge!\n");
+            //printf("Parsed messge!\n");
 
             // if successful, write message to the socket
                 // function: writeMessageToSocket
                 writeMessageToSocket( sendingSocket, &msgStrct);
-            printf("Wrote message!\n");
+            //printf("Wrote message!\n");
       }
     // exit thread
         // function: pthread_exit
