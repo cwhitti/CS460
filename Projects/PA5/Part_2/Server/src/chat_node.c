@@ -66,7 +66,7 @@ ChatNodeList* clearChatNodeListHelper( ChatNode *wkgPtr )
 bool compareChatNodes( ChatNode* first, ChatNode* second )
 {
   return ( first -> ip == second -> ip &&
-            first -> port == first -> port &&
+            first -> port == second -> port &&
               privateCompareStrings( first -> name, second -> name ) == 0 );
 }
 
