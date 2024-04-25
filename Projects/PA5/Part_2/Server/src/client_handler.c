@@ -14,6 +14,7 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
 
   // change msgtype from JOIN > JOINED
   messageObj->messageType = JOINING;
+  messageObj->noteContent = "User has joined!!!!!!!";
 
   // send join message to all clients
     // function: forwardMessage()
@@ -32,6 +33,7 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
   {
     // change msgtype from LEAVE > LEAVING
     messageObj->messageType = LEAVING;
+    messageObj->noteContent = "User has Left!!!!!!!";
 
     // send
       // function: forwardMessage()
