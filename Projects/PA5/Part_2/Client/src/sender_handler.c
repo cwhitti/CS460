@@ -9,17 +9,18 @@ void* senderLoop(void* arg)
 {
     // cast argument to ChatNode**
     // initialize variables
-    ChatNode** argsPtr = (ChatNode** )args;
+    ChatNode** argsPtr = (ChatNode** )arg;
 
     // extract my chat node and the server chat node
     ChatNode* clientNode = argsPtr[0];
     ChatNode* serverNode = argsPtr[1];
     struct sockaddr_in serverAddress;
+    int sendingSocket;
     Message msgStrct;
 
     // set up serverAddress
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = inet_addr(serverNode -> ip);
+    serverAddress.sin_addr.s_addr = htonl(serverNode -> ip);
     serverAddress.sin_port = htons(serverNode -> port);
 
     // set message chat node to my chat node
@@ -54,7 +55,7 @@ void* senderLoop(void* arg)
 
             // if successful, write message to the socket
                 // function: writeMessageToSocket
-                writeMessageToSocket( socket, &outMsg);
+                writeMessageToSocket( sendingSocket, &msgStrct);
       }
     // exit thread
         // function: pthread_exit
@@ -78,23 +79,23 @@ bool parseMessage(char* inString, Message* outMsg)
 
     */
 
-    strncmp(pre, str, strlen(pre)) == 0;
+    //strncmp(pre, str, strlen(pre)) == 0;
 
     // check for JOIN keyword in first word
-    if ( strncmp(JOIN_KEYWORD, *inString, strlen(JOIN_KEYWORD)) == 0 )
+    if ( strncmp(JOIN_KEYWORD, inString, strlen(JOIN_KEYWORD)) == 0 )
     {
             // update messageType of outMsg
             outMsg -> messageType = JOIN;
     }
     // check for LEAVE keyword in first word
-    else if (strncmp(LEAVE_KEYWORD, *inString, strlen(LEAVE_KEYWORD)) == 0)
+    else if (strncmp(LEAVE_KEYWORD, inString, strlen(LEAVE_KEYWORD)) == 0)
     {
         // update messageType of outMsg
         outMsg -> messageType = LEAVE;
     }
 
     // check for SHUTDOWN ALL
-    else if (strncmp(SHUTDOWN_ALL_KEYWORD, *inString,
+    else if (strncmp(SHUTDOWN_ALL_KEYWORD, inString,
                                         strlen(SHUTDOWN_ALL_KEYWORD)) == 0)
     {
         // update messageType of outMsg
@@ -102,7 +103,7 @@ bool parseMessage(char* inString, Message* outMsg)
     }
 
     // check for SHUTDOWN
-    else if (strncmp(SHUTDOWN_KEYWORD, *inString, strlen(SHUTDOWN_KEYWORD)) == 0)
+    else if (strncmp(SHUTDOWN_KEYWORD, inString, strlen(SHUTDOWN_KEYWORD)) == 0)
     {
         // update messageType of outMsg
         outMsg -> messageType = SHUTDOWN;
@@ -112,11 +113,11 @@ bool parseMessage(char* inString, Message* outMsg)
     else
     {
         // update messageType of outMsg
-        outMsg -> messageType = SHUTDOWN;
+        outMsg -> messageType = NOTE;
 
         // update Note field of outMsg
             // function: strcpy
-            strncpy( outMsg -> noteContent, inString);
+            strncpy( outMsg -> noteContent, inString, sizeof(outMsg->noteContent));
     }
 
     return true;

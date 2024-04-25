@@ -16,7 +16,7 @@ int main(int argc, char** argv)
     char* serverName = "SERVER";
 
     Properties* properties;
-    ChatNode** chatNodes;
+    ChatNode*[2] chatNodes;
 
     // read properties
     if (argc != 2)
@@ -45,6 +45,7 @@ int main(int argc, char** argv)
                                           (unsigned short int)serverPort,
                                            serverName);
 
+    printf("test\n");
     /*
     // set server address struct
     serverAddress.sin_family = AF_INET;

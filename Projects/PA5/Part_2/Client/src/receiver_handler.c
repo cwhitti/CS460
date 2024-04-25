@@ -71,7 +71,6 @@ void* receiverLoop(void* arg)
             // SHUTDOWN: exit the receiver
                 // function: pthread_exit
             case SHUTDOWN_ALL:
-            pthread_exit(NULL);
             break;
         }
     }
