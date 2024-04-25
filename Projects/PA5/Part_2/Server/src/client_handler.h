@@ -22,6 +22,8 @@ typedef struct ThreadArgsStruct
 {
     int clientSocket;
     ChatNodeList *clientList;
+    pthread_mutex_t mainLock;
+    pthread_mutex_t llLock;
 } ThreadArgs;
 
 // join function

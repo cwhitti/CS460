@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 /* ************************************************************************* */
 /* MAIN                                                                      */
 /* ************************************************************************* */
@@ -12,6 +11,9 @@ int main(int argc, char** argv)
     ThreadArgs threadArgs; // create thread args
     ChatNodeList* clientList; // TODO: initialize data for clientList
     int yes = 1;
+
+    pthread_mutex_t mainLock = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_t llLock = PTHREAD_MUTEX_INITIALIZER;
 
     clientList = initializeChatNodeList();
 
@@ -61,6 +63,11 @@ int main(int argc, char** argv)
         exit(EXIT_FAILURE);
     }
 
+    pthread_mutex_init(&mainLock, NULL);
+    pthread_mutex_init(&llLock, NULL);
+    pthread_mutex_lock(&mainLock);
+    pthread_mutex_lock(&llLock);
+
     // ----------------------------------------------------------
     // server loop
     // ----------------------------------------------------------
@@ -83,6 +90,9 @@ int main(int argc, char** argv)
             perror("Error creating thread");
             exit(EXIT_FAILURE);
         }
+
+        pthread_mutex_lock(&mainLock);
+        pthread_mutex_lock(&llLock);
 
         // detach the thread so that we don't have to wait (join) with it to reclaim memory.
         // memory will be reclaimed when the thread finishes.

@@ -163,11 +163,14 @@ void* handle_client( void* args )
   // initialize variables
   ThreadArgs *threadArgs = (ThreadArgs *)args;
 
-
   // grab client socket
   int clientSocket = threadArgs->clientSocket;
   // grab clientList
   ChatNodeList* clientList = threadArgs->clientList;
+  pthread_mutex_t mainLock = threadArgs->mainLock;
+  pthread_mutex_t llLock = threadArgs->llLock;
+
+  pthread_mutex_unlock(&mainLock);
 
   // read entire message from socket, returns pointer to new msg struct
     // function: readMessageFromSocket( )
@@ -214,4 +217,6 @@ void* handle_client( void* args )
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
   }
+
+  pthread_mutex_unlock(&llLock);
 }
