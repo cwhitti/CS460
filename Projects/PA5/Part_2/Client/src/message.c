@@ -29,6 +29,21 @@ Message* createMessageFromMessage(Message* inMsg)
                                  inMsg->noteContent);
 }
 
+void printMessageStruct(Message* msg)
+{
+    printf("Type: %d , IP: %u , Port: %u , Name: %s", 
+            msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name);
+
+    if (msg->messageType == NOTE)
+    {
+        printf(" Note contents: %s\n", msg->noteContent);
+    }
+    else
+    {
+        printf("\n");
+    }
+}
+
 /*
 Reads data from the socket, expecting message data, and returns
 pointer to new message, returns NULL if there was a network error
@@ -55,6 +70,9 @@ Message* readMessageFromSocket(int socket)
     // convert raw data into data structures
     newChatNode = createChatNodeFromData(ntohl(inIp), ntohs(inPort), inName);
     newMessage = createMessageFromData(ntohl(inMsgType), newChatNode, inNote);
+
+    printf("Message read:\n");
+    printMessageStruct(newMessage);
 
     // return new message
     return newMessage;
@@ -112,4 +130,7 @@ void writeMessageToSocket(int socket, Message* outMsg)
 
     // write note content
     write(socket, &(outMsg->noteContent), NOTE_LEN);
+
+    printf("Message written:\n");
+    printMessageStruct(outMsg);
 }

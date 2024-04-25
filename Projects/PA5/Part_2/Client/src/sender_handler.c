@@ -21,7 +21,7 @@ void* senderLoop(void* arg)
 
     // set up serverAddress
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = serverNode -> ip;
+    serverAddress.sin_addr.s_addr = htonl(serverNode -> ip);
     serverAddress.sin_port = htons(serverNode -> port);
 
     // set message chat node to my chat node

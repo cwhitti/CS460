@@ -37,12 +37,12 @@ int main(int argc, char** argv)
     sscanf(property_get_property(properties, "SERVER_PORT"), "%d", &serverPort);
 
     // set chat node array
-    chatNodes[0] = createChatNodeFromData((unsigned int)inet_addr(clientIPString),
+    chatNodes[0] = createChatNodeFromData((unsigned int)htonl(inet_addr(clientIPString)),
                                           (unsigned short int)myPort,
                                            myName);
     //printf("Server IP: %s\n", serverIPString);
     //printf("Converted: %u\n", inet_addr(serverIPString));
-    chatNodes[1] = createChatNodeFromData((unsigned int)inet_addr(serverIPString),
+    chatNodes[1] = createChatNodeFromData((unsigned int)htonl(inet_addr(serverIPString)),
                                           (unsigned short int)serverPort,
                                            serverName);
 
