@@ -14,6 +14,10 @@
 
 #include "message.h"
 
+#ifndef NUM_CONNECTIONS
+#define NUM_CONNECTIONS 20
+#endif
+
 /*
 Implements loop of listening for messages from server. Expects a pointer
 to a socket as the argument.

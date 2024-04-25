@@ -6,7 +6,7 @@ int main(int argc, char** argv)
     pthread_t receivingThread, sendingThread;
 
     struct sockaddr_in clientAddress;
-    char clientIPString[INET_ADDRSTRLEN] ;
+    char clientIPString[INET_ADDRSTRLEN];
     int myPort;
     char myName[NAME_LEN];
 
