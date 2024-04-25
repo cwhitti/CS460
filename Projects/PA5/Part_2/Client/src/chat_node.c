@@ -23,6 +23,12 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
     // set last item -> next to chatNode
     wkgPtr -> next = chatNode;
   }
+
+  else
+  {
+    chatNodeList -> firstPtr;
+  }
+
 }
 
 /*
