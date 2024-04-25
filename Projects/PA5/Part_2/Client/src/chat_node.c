@@ -26,7 +26,7 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 
   else
   {
-    chatNodeList -> firstPtr;
+    chatNodeList -> firstPtr = chatNode;
   }
 
 }
