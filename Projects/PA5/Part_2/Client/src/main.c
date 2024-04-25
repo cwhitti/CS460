@@ -42,7 +42,7 @@ int main(int argc, char** argv)
                                            myName);
     //printf("Server IP: %s\n", serverIPString);
     //printf("Converted: %u\n", inet_addr(serverIPString));
-    chatNodes[1] = createChatNodeFromData((unsigned int)ntohl((inet_addr(serverIPString)),
+    chatNodes[1] = createChatNodeFromData((unsigned int)ntohl(inet_addr(serverIPString)),
                                           (unsigned short int)serverPort,
                                            serverName);
 
