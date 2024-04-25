@@ -101,6 +101,8 @@ int main(int argc, char** argv)
         pthread_mutex_lock(&mainLock);
         pthread_mutex_lock(&llLock);
 
+        displayLinkedList( clientList );
+
         // detach the thread so that we don't have to wait (join) with it to reclaim memory.
         // memory will be reclaimed when the thread finishes.
         if (pthread_detach(thread) != 0)

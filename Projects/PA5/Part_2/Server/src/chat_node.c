@@ -113,6 +113,26 @@ void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 }
 
 /*
+  Function: displayLinkedList
+
+  Purpose: Prints linked list to console
+*/
+void displayLinkedList( ChatNodeList* chatNodeList )
+{
+  ChatNode* wkgPtr = chatNodeList -> firstPtr;
+
+  while ( wkgPtr != NULL)
+  {
+    printElement( wkgPtr );
+
+    if (wkgPtr -> next != NULL )
+    {
+      printf( "|\nv\n" );
+    }
+  }
+}
+
+/*
   Function: initializeChatNodeList
 
   Purpose: Initializes list of chat nodes
@@ -129,6 +149,10 @@ ChatNodeList* initializeChatNodeList( void )
   return newData;
 }
 
+void printElement( ChatNode *node)
+{
+  printf("Name: %s | Port: %d | IP: %d\n", node->name, node->port, node->ip);
+}
 /*
   Function: privateCompareStrings
 

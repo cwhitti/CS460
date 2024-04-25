@@ -41,10 +41,12 @@ ChatNodeList* clearChatNodeListHelper( ChatNode *wkgPtr );
 bool          compareChatNodes( ChatNode* first, ChatNode* second );
 ChatNode*     createChatNodeFromData( unsigned int ip, unsigned short int port,char* name);
 
+void          displayLinkedList( ChatNodeList* chatNodeList );
 void          deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode);
 
 ChatNodeList* initializeChatNodeList( void );
 
+void          printElement( ChatNode *node);
 int           privateCompareStrings( const char *leftStr, const char *rightStr );
 int           privateGetStringLen( const char *str );
 
