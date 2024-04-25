@@ -40,7 +40,8 @@ int main(int argc, char** argv)
     chatNodes[0] = createChatNodeFromData((unsigned int)inet_addr(clientIPString),
                                           (unsigned short int)myPort,
                                            myName);
-
+    printf("Server IP: %s\n", serverIPString);
+    printf("Converted: %u\n", inet_addr(serverIPString));
     chatNodes[1] = createChatNodeFromData((unsigned int)inet_addr(serverIPString),
                                           (unsigned short int)serverPort,
                                            serverName);

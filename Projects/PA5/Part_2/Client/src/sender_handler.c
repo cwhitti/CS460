@@ -14,13 +14,14 @@ void* senderLoop(void* arg)
     // extract my chat node and the server chat node
     ChatNode* clientNode = argsPtr[0];
     ChatNode* serverNode = argsPtr[1];
+
     struct sockaddr_in serverAddress;
     int sendingSocket;
     Message msgStrct;
 
     // set up serverAddress
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = htonl(serverNode -> ip);
+    serverAddress.sin_addr.s_addr = serverNode -> ip;
     serverAddress.sin_port = htons(serverNode -> port);
 
     // set message chat node to my chat node
@@ -28,28 +29,13 @@ void* senderLoop(void* arg)
     deepCopyChatNode( &msgStrct.messageSender, clientNode );
     msgStrct.messageType = NOTE;
 
-    // create sending socket
-    sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    printf("Created socket!\n");
-
-    // connect sending socket to server socket
-    if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
-                                                        sizeof(serverAddress)) == -1)
-        {
-            perror("Error connecting to server!\n");
-            exit(EXIT_FAILURE);
-        }
-
-    printf("Connected!\n");
-
     // loop until message is a SHUTDOWN or SHUTDOWN_ALL
-    while ( msgStrct.messageType !=  SHUTDOWN ||
+    while ( msgStrct.messageType !=  SHUTDOWN &&
             msgStrct.messageType !=  SHUTDOWN_ALL )
     {
         // read string from command line
             // function: scanf
-        //printf("Hello\n");
+        printf("Enter something: ");
         //strcpy(msgStrct.noteContent, "JOIN");
 
         fgets(msgStrct.noteContent, NOTE_LEN, stdin );
@@ -59,6 +45,22 @@ void* senderLoop(void* arg)
             parseMessage( msgStrct.noteContent, &msgStrct );
 
             printf("Parsed messge!\n");
+
+
+        // create sending socket
+        sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
+
+        printf("Created socket!\n");
+
+        // connect sending socket to server socket
+        if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
+                                                            sizeof(serverAddress)) == -1)
+            {
+                perror("Error connecting to server!\n");
+                exit(EXIT_FAILURE);
+            }
+
+        printf("Connected!\n");
 
             // if successful, write message to the socket
                 // function: writeMessageToSocket
