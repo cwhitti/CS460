@@ -6,29 +6,56 @@ to a socket as the argument.
 Dependencies: parseMessage, writeMessageToSocket, scanf
 */
 void* senderLoop(void* arg)
-{   
+{
     // cast argument to ChatNode**
+    // initialize variables
+    ChatNode** argsPtr = (ChatNode** )args;
 
     // extract my chat node and the server chat node
+    ChatNode* clientNode = argsPtr[0];
+    ChatNode* serverNode = argsPtr[1];
+    struct sockaddr_in serverAddress;
+    Message msgStrct;
 
-    // initialize message
+    // set up serverAddress
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = inet_addr(serverNode -> ip);
+    serverAddress.sin_port = htons(serverNode -> port);
 
     // set message chat node to my chat node
         // function: deepCopyChatNode
+    deepCopyChatNode( &msgStrct.messageSender, clientNode );
+    msgStrct.messageType = NOTE;
 
     // loop until message is a SHUTDOWN or SHUTDOWN_ALL
-
+    while ( msgStrct.messageType !=  SHUTDOWN ||
+            msgStrct.messageType !=  SHUTDOWN_ALL )
+    {
         // read string from command line
             // function: scanf
+        scanf( "%s", msgStrct.noteContent );
 
         // write data from string to message struct, check for success
             // function: parseMessage
+            parseMessage( msgStrct.noteContent, &msgStrct );
 
             // set up socket to connect to server
 
-                // if successful, write message to the socket
-                    // function: writeMessageToSocket
+            // create sending socket
+            sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+            // connect sending socket to server socket
+            if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
+                                                        sizeof(serverAddress)) == -1)
+            {
+                perror("Error connecting to server!\n");
+                exit(EXIT_FAILURE);
+            }
+
+            // if successful, write message to the socket
+                // function: writeMessageToSocket
+                writeMessageToSocket( socket, &outMsg);
+      }
     // exit thread
         // function: pthread_exit
 }
@@ -41,34 +68,56 @@ Dependencies: sscanf
 */
 bool parseMessage(char* inString, Message* outMsg)
 {
-    
-    // get the first and second "word" from the string
-        // function: sscanf
+
+    /*
+    int day, year;
+       char weekday[20], month[20], dtm[100];
+
+       strcpy( dtm, "Saturday March 25 1989" );
+       sscanf( dtm, "%s %s %d  %d", weekday, month, &day, &year );
+
+    */
+
+    strncmp(pre, str, strlen(pre)) == 0;
 
     // check for JOIN keyword in first word
-
-        // update messageType of outMsg
-
+    if ( strncmp(JOIN_KEYWORD, *inString, strlen(JOIN_KEYWORD)) == 0 )
+    {
+            // update messageType of outMsg
+            outMsg -> messageType = JOIN;
+    }
     // check for LEAVE keyword in first word
-
+    else if (strncmp(LEAVE_KEYWORD, *inString, strlen(LEAVE_KEYWORD)) == 0)
+    {
         // update messageType of outMsg
+        outMsg -> messageType = LEAVE;
+    }
 
-    // check for SHUTDOWN keyword in first word
+    // check for SHUTDOWN ALL
+    else if (strncmp(SHUTDOWN_ALL_KEYWORD, *inString,
+                                        strlen(SHUTDOWN_ALL_KEYWORD)) == 0)
+    {
+        // update messageType of outMsg
+        outMsg -> messageType = SHUTDOWN_ALL;
+    }
 
-        // check for second word is ALL keyword
-
-            // update messageType of outMsg
-
-        // otherwise, assume just SHUTDOWN
-
-            // update messageType of outMsg
+    // check for SHUTDOWN
+    else if (strncmp(SHUTDOWN_KEYWORD, *inString, strlen(SHUTDOWN_KEYWORD)) == 0)
+    {
+        // update messageType of outMsg
+        outMsg -> messageType = SHUTDOWN;
+    }
 
     // otherwise, assume message is a NOTE
-
+    else
+    {
         // update messageType of outMsg
+        outMsg -> messageType = SHUTDOWN;
 
         // update Note field of outMsg
             // function: strcpy
+            strncpy( outMsg -> noteContent, inString);
+    }
 
     return true;
 }

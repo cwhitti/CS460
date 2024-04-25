@@ -17,8 +17,8 @@
 
 #define JOIN_KEYWORD "JOIN";
 #define LEAVE_KEYWORD "LEAVE";
+#define SHUTDOWN_ALL_KEYWORD "SHUTDOWN ALL";
 #define SHUTDOWN_KEYWORD "SHUTDOWN";
-#define ALL_KEYWORD "ALL";
 
 /*
 Implements loop of listening for messages from server. Expects a pointer
