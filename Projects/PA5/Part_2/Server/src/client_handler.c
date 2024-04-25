@@ -185,6 +185,7 @@ void* handle_client( void* args )
     //  JOIN
     case JOIN:
       // function: clientJoin()
+      printf("%s joined\n", messageObj->messageSender.name);
       clientJoin(clientList, messageObj);
 
     //  LEAVE

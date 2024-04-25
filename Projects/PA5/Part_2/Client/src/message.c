@@ -97,7 +97,6 @@ Dependencies: write
 */
 void writeMessageToSocket(int socket, Message* outMsg)
 {
-    printf("Hello\n");
     // apply network macros to appropriate values
     unsigned int outMsgType = htonl(outMsg->messageType);
     unsigned int outIp = htons(outMsg->messageSender.ip);
@@ -113,6 +112,4 @@ void writeMessageToSocket(int socket, Message* outMsg)
 
     // write note content
     write(socket, &(outMsg->noteContent), NOTE_LEN);
-
-    printf("Wrote haha\n");
 }
