@@ -99,8 +99,8 @@ void writeMessageToSocket(int socket, Message* outMsg)
 {
     // apply network macros to appropriate values
     unsigned int outMsgType = htonl(outMsg->messageType);
-    unsigned int outIp = htons(outMsg->messageSender.ip);
-    unsigned short int outPort = htonl(outMsg->messageSender.port);
+    unsigned int outIp = htonl(outMsg->messageSender.ip);
+    unsigned short int outPort = htons(outMsg->messageSender.port);
 
     // write message type
     write(socket, &(outMsgType), sizeof(outMsgType));
