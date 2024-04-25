@@ -19,6 +19,8 @@ int main(int argc, char** argv)
 
     // assign clientList to threadArgs
     threadArgs.clientList = clientList;
+    threadArgs.mainLock = &mainLock;
+    threadArgs.llLock = &llLock;
 
     // ----------------------------------------------------------
     // ignore SIGPIPE, sent when client disconnected

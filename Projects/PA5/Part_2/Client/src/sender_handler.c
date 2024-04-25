@@ -34,7 +34,9 @@ void* senderLoop(void* arg)
     {
         // read string from command line
             // function: scanf
-        scanf( "%s", msgStrct.noteContent );
+        printf("Hello\n");
+
+        fgets(msgStrct.noteContent, NOTE_LEN, stdin );
 
         // write data from string to message struct, check for success
             // function: parseMessage

@@ -167,10 +167,12 @@ void* handle_client( void* args )
   int clientSocket = threadArgs->clientSocket;
   // grab clientList
   ChatNodeList* clientList = threadArgs->clientList;
-  pthread_mutex_t mainLock = threadArgs->mainLock;
-  pthread_mutex_t llLock = threadArgs->llLock;
+  pthread_mutex_t* mainLock = threadArgs->mainLock;
+  pthread_mutex_t* llLock = threadArgs->llLock;
 
-  pthread_mutex_unlock(&mainLock);
+  pthread_mutex_unlock(mainLock);
+
+  printf("Client accepted!\n");
 
   // read entire message from socket, returns pointer to new msg struct
     // function: readMessageFromSocket( )
@@ -218,5 +220,5 @@ void* handle_client( void* args )
       forwardMessage(clientList, messageObj);
   }
 
-  pthread_mutex_unlock(&llLock);
+  pthread_mutex_unlock(llLock);
 }
