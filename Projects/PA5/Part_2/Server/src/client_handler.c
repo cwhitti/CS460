@@ -6,6 +6,8 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
   // grab client from messageObj
   ChatNode clientNode = messageObj->messageSender;
 
+  printf("Trying to add %s\n", clientNode.name);
+
   // add client to clientList
     // function: addChatNodeToList
   addChatNodeToList(clientList, &clientNode);
@@ -187,6 +189,7 @@ void* handle_client( void* args )
       // function: clientJoin()
       printf("%s joined\n", messageObj->messageSender.name);
       clientJoin(clientList, messageObj);
+      printf("Finsihed joining\n");
 
     //  LEAVE
     case LEAVE:
