@@ -6,6 +6,7 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
   // grab client from messageObj
   ChatNode clientNode = messageObj->messageSender;
 
+
   printf("Trying to add %s\n", clientNode.name);
 
   // add client to clientList
@@ -14,7 +15,8 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
 
   // change msgtype from JOIN > JOINED
   messageObj->messageType = JOINING;
-  messageObj->noteContent = "User has joined!!!!!!!";
+  strncpy( messageObj->noteContent, "User has joined!!!\n",
+                                    sizeof(messageObj->noteContent));
 
   // send join message to all clients
     // function: forwardMessage()
@@ -33,7 +35,8 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
   {
     // change msgtype from LEAVE > LEAVING
     messageObj->messageType = LEAVING;
-    messageObj->noteContent = "User has Left!!!!!!!";
+    strncpy( messageObj->noteContent, "User has Left!!!\n",
+                                      sizeof(messageObj->noteContent));
 
     // send
       // function: forwardMessage()
