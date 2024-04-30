@@ -131,7 +131,6 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
     printf("Closed socket to client\n");
     printf("Sent to %s\n", clientNode.name);
 
-  /*
   // loop through clientList
   for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
     // if the current client != clientNode
@@ -337,4 +336,6 @@ void* handle_client( void* args )
   }
 
   displayLinkedList( clientList );
+
+  pthread_exit(NULL);
 }
