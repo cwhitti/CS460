@@ -46,6 +46,7 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
 
 void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 {
+  
    // declare variables
   ChatNode* wkgPtr;
 
