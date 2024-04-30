@@ -30,17 +30,17 @@ void* senderLoop(void* arg)
     msgStrct.messageType = NOTE;
 
             // create sending socket
-        sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
+    sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-        //printf("Created socket!\n");
+    //printf("Created socket!\n");
 
-        // connect sending socket to server socket
-        if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
-                                                            sizeof(serverAddress)) == -1)
-            {
-                perror("Error connecting to server!\n");
-                exit(EXIT_FAILURE);
-            }
+    // connect sending socket to server socket
+    if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
+                                                        sizeof(serverAddress)) == -1)
+        {
+            perror("Error connecting to server!\n");
+            exit(EXIT_FAILURE);
+        }
 
         //printf("Connected!\n");
     
@@ -57,13 +57,13 @@ void* senderLoop(void* arg)
         
         // write data from string to message struct, check for success
             // function: parseMessage
-            parseMessage( msgStrct.noteContent, &msgStrct );
+        parseMessage( msgStrct.noteContent, &msgStrct );
 
             //printf("Parsed messge!\n");
 
             // if successful, write message to the socket
                 // function: writeMessageToSocket
-                writeMessageToSocket( sendingSocket, &msgStrct);
+        writeMessageToSocket( sendingSocket, &msgStrct);
             //printf("Wrote message!\n");
       }
     // exit thread

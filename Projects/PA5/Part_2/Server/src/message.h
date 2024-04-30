@@ -59,6 +59,8 @@ Dependencies: read, createMessageFromData, createChatNodeFromData
 */
 Message* readMessageFromSocket(int socket);
 
+void printMessageStruct(Message* msg);
+
 /*
 Reads data from the socket, expecting message data, and returns
 pointer to new message

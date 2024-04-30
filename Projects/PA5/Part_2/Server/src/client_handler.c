@@ -46,6 +46,8 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
 void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 {
   printf("Got into forward message\n");
+  printf("Message to forward:");
+  printMessageStruct(messageObj);
    // declare variables
   ChatNode* wkgPtr;
 
