@@ -73,7 +73,9 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
       {
+        printf("Connected to person\n");
         writeMessageToSocket(sendSocket, messageObj);
+        printf("Successfully wrote to person\n");
 
         // disconnect
         if (close(sendSocket) == -1)
