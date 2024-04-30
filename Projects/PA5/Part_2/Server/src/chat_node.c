@@ -19,11 +19,11 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
     {
       wkgPtr = wkgPtr -> next;
     }
-   printf("Adding %s\n", chatNode->name);
+   //printf("Adding %s\n", chatNode->name);
     // set last item -> next to chatNode
     wkgPtr->next = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
-
     printf("List was not empty, added %s\n", chatNode->name);
+
   }
 
   else

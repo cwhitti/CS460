@@ -6,7 +6,6 @@ void clientJoin( ChatNodeList *clientList, Message* messageObj )
   // grab client from messageObj
   ChatNode clientNode = messageObj->messageSender;
 
-
   printf("Trying to add %s\n", clientNode.name);
 
   // add client to clientList
@@ -72,6 +71,17 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
                                                 sizeof(clientAddress)) != -1)
       {
         writeMessageToSocket(sendSocket, messageObj);
+
+        // disconnect
+        if (close(sendSocket) == -1)
+        {
+            perror("Error closing socket");
+            exit(EXIT_FAILURE);
+        }
+        else
+        {
+            printf("Closed socket to client, exit\n");
+        }
       }
     }
 }
