@@ -34,10 +34,10 @@ void printMessageStruct(Message* msg)
     printf("Type: %d , IP: %u , Port: %u , Name: %s",
             msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name);
 
-    if (msg->messageType == NOTE)
-    {
+    //if (msg->messageType == NOTE)
+    //{
         printf(" Note contents: %s\n", msg->noteContent);
-    }
+    //}
     else
     {
         printf("\n");
