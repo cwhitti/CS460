@@ -156,7 +156,7 @@ ChatNodeList* initializeChatNodeList( void )
 
 void printElement( ChatNode *node)
 {
-  printf("Name: %s | Port: %d | IP: %d\n", node->name, node->port, node->ip);
+  printf("Name: %s | Port: %u | IP: %u\n", node->name, node->port, node->ip);
 }
 /*
   Function: privateCompareStrings
