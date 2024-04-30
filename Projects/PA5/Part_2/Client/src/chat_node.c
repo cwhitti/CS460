@@ -19,13 +19,16 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
     {
       wkgPtr = wkgPtr -> next;
     }
-   printf("Adding %s\n", chatNode->name);
+   //printf("Adding %s\n", chatNode->name);
     // set last item -> next to chatNode
     wkgPtr->next = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
+    printf("List was not empty, added %s\n", chatNode->name);
+
   }
 
   else
   {
+    printf("List was empty, adding %s\n", chatNode->name);
     chatNodeList -> firstPtr = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
   }
 
@@ -153,7 +156,7 @@ ChatNodeList* initializeChatNodeList( void )
 
 void printElement( ChatNode *node)
 {
-  printf("Name: %s | Port: %d | IP: %d\n", node->name, node->port, node->ip);
+  printf("Name: %s | Port: %u | IP: %u\n", node->name, node->port, node->ip);
 }
 /*
   Function: privateCompareStrings

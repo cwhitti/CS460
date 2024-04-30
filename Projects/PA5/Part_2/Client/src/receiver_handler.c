@@ -16,7 +16,7 @@ void* receiverLoop(void* arg)
     // set up a socket with my chat node info and start listening
     struct sockaddr_in clientAddress;
     clientAddress.sin_family = AF_INET;
-    clientAddress.sin_addr.s_addr = htonl(INADDR_ANY); 
+    clientAddress.sin_addr.s_addr = htonl(INADDR_ANY);
     clientAddress.sin_port = htons(myNode->port);
 
     int receivingSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -44,8 +44,6 @@ void* receiverLoop(void* arg)
         // read message from server
             // function: readMessageFromSocket
         inMsg = readMessageFromSocket(serverSocket);
-
-        // close socket
 
         // process depending on message type:
         switch (inMsg->messageType)
