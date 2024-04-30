@@ -64,7 +64,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 
       struct sockaddr_in clientAddress;
       clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = wkgPtr->ip;
+      clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip);
       clientAddress.sin_port = htons(wkgPtr->port);
 
       if (connect(sendSocket, (struct sockaddr *)&clientAddress,
