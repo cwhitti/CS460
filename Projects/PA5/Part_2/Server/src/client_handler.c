@@ -129,8 +129,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
     }
 
     printf("Closed socket to client\n");
-    printf("Sent to %s\n", wkgPtr->name);
-*/
+    printf("Sent to %s\n", clientNode.name);
 
   /*
   // loop through clientList
