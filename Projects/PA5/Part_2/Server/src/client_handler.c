@@ -58,8 +58,8 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 
   struct sockaddr_in clientAddress;
   clientAddress.sin_family = AF_INET;
-  clientAddress.sin_addr.s_addr = htonl(clientNode->ip);
-  clientAddress.sin_port = htons(clientNode->port);
+  clientAddress.sin_addr.s_addr = htonl(clientNode.ip);
+  clientAddress.sin_port = htons(clientNode.port);
 
     if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) == -1)
