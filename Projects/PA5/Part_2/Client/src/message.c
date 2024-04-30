@@ -38,10 +38,10 @@ void printMessageStruct(Message* msg)
     //{
         printf(" Note contents: %s\n", msg->noteContent);
     //}
-    else
-    {
-        printf("\n");
-    }
+    //else
+    //{
+        //printf("\n");
+    //}
 }
 
 /*
