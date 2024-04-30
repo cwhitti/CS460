@@ -4,7 +4,7 @@
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
 */
-Message* createMessageFromData(MessageType inMsgType, 
+Message* createMessageFromData(MessageType inMsgType,
                                ChatNode* inMsgSender,
                                Note inNoteContent)
 {
@@ -31,7 +31,7 @@ Message* createMessageFromMessage(Message* inMsg)
 
 void printMessageStruct(Message* msg)
 {
-    printf("Type: %d , IP: %u , Port: %u , Name: %s", 
+    printf("Type: %d , IP: %u , Port: %u , Name: %s",
             msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name);
 
     if (msg->messageType == NOTE)
@@ -104,7 +104,7 @@ int completeRead(int socket, void* buffer, unsigned int size)
             bytesReadAll += bytesRead;
         }
     } while (size != 0);
-    
+
     return (int)bytesReadAll;
 }
 

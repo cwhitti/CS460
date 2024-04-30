@@ -12,6 +12,7 @@ void* receiverLoop(void* arg)
     ChatNode* myNode = chatNodes[0];
     ChatNode* serverNode = chatNodes[1];
     Message* inMsg;
+    int serverSocket;
 
     // set up a socket with my chat node info and start listening
     struct sockaddr_in clientAddress;
@@ -39,7 +40,7 @@ void* receiverLoop(void* arg)
     while (true)
     {
         // accept a new connection from server
-        int serverSocket = accept(receivingSocket, NULL, NULL);
+        serverSocket = accept(receivingSocket, NULL, NULL);
 
         // read message from server
             // function: readMessageFromSocket
