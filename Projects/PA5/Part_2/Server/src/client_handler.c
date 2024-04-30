@@ -61,6 +61,9 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
   clientAddress.sin_addr.s_addr = htonl(clientNode.ip);
   clientAddress.sin_port = htons(clientNode.port);
 
+  printf("Status: %d\n", connect(sendSocket, (struct sockaddr *)&clientAddress,
+                                              sizeof(clientAddress));
+                                              
     if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) == -1)
     {
@@ -78,7 +81,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
         perror("Error closing socket");
         exit(EXIT_FAILURE);
     }
-        
+
     printf("Closed socket to client\n");
     printf("Sent to %s\n", wkgPtr->name);
 
@@ -118,7 +121,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
           perror("Error closing socket");
           exit(EXIT_FAILURE);
       }
-          
+
       printf("Closed socket to client\n");
       printf("Sent to %s\n", wkgPtr->name);
     }
