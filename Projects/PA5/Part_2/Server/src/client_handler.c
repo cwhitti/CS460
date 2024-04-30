@@ -71,29 +71,24 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       printElement(wkgPtr);
 
       if (connect(sendSocket, (struct sockaddr *)&clientAddress,
-                                                sizeof(clientAddress)) != -1)
-      {
-        printf("Connected to person\n");
-        writeMessageToSocket(sendSocket, messageObj);
-        printf("Successfully wrote to person\n");
-
-        // disconnect
-        if (close(sendSocket) == -1)
-        {
-            perror("Error closing socket");
-            exit(EXIT_FAILURE);
-        }
-        else
-        {
-            printf("Closed socket to client, exit\n");
-        }
-      }
-      else
+                                                sizeof(clientAddress)) == -1)
       {
         perror("Error forwarding to client");
         exit(EXIT_FAILURE);
       }
 
+      printf("Connected to person\n");
+      writeMessageToSocket(sendSocket, messageObj);
+      printf("Successfully wrote to person\n");
+
+      // disconnect
+      if (close(sendSocket) == -1)
+      {
+          perror("Error closing socket");
+          exit(EXIT_FAILURE);
+      }
+          
+      printf("Closed socket to client\n");
       printf("Sent to %s\n", wkgPtr->name);
     }
 }
