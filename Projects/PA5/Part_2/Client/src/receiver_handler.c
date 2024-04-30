@@ -12,7 +12,7 @@ void* receiverLoop(void* arg)
     ChatNode* myNode = chatNodes[0];
     ChatNode* serverNode = chatNodes[1];
     Message* inMsg;
-    int serverSocket;
+    int yes = 1;
 
     // set up a socket with my chat node info and start listening
     struct sockaddr_in clientAddress;
@@ -20,7 +20,24 @@ void* receiverLoop(void* arg)
     clientAddress.sin_addr.s_addr = htonl(INADDR_ANY);
     clientAddress.sin_port = htons(myNode->port);
 
-    int receivingSocket = socket(AF_INET, SOCK_STREAM, 0);
+    int receivingSocket;
+
+    signal(SIGPIPE, SIG_IGN);
+
+    // ----------------------------------------------------------
+    // create unnamed network socket for server to listen on
+    // ----------------------------------------------------------
+    if ((receivingSocket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+    {
+        perror("Error creating socket");
+        exit(EXIT_FAILURE);
+    }
+
+    // lose the pesky "Address already in use" error message
+    if (setsockopt(receivingSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == -1) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
 
     // bind receiving socket
     if (bind(receivingSocket, (struct sockaddr *)&clientAddress, sizeof(clientAddress)) != 0)
@@ -40,7 +57,7 @@ void* receiverLoop(void* arg)
     while (true)
     {
         // accept a new connection from server
-        serverSocket = accept(receivingSocket, NULL, NULL);
+        int serverSocket = accept(receivingSocket, NULL, NULL);
 
         // read message from server
             // function: readMessageFromSocket

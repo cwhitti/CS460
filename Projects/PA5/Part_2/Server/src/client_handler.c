@@ -61,8 +61,8 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
   clientAddress.sin_addr.s_addr = htonl(clientNode.ip);
   clientAddress.sin_port = htons(clientNode.port);
 
-  printf("Status: %d\n", connect(sendSocket, (struct sockaddr *)&clientAddress,
-                                              sizeof(clientAddress));
+  //printf("Status: %d\n", connect(sendSocket, (struct sockaddr *)&clientAddress,
+                                              //sizeof(clientAddress)));
                                               
     if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) == -1)
