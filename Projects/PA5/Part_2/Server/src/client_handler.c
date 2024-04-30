@@ -58,6 +58,11 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
   {
     if ( !compareChatNodes(wkgPtr, &clientNode) )
     {
+
+      printf("Trying to forward to: ");
+      printElement( wkgPtr );
+      printf("\n");
+      
       int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
 
       struct sockaddr_in clientAddress;
