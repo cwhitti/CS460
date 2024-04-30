@@ -71,6 +71,10 @@ void* receiverLoop(void* arg)
                 // function: pthread_exit
             case SHUTDOWN_ALL:
             break;
+
+            default:
+            printf("You fucked up\n");
+            break;
         }
     }
 }

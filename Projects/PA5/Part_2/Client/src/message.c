@@ -12,7 +12,7 @@ Message* createMessageFromData(MessageType inMsgType,
     newMessage->messageType = inMsgType;
     deepCopyChatNode(&(newMessage->messageSender), inMsgSender);
     strncpy((char*)&(newMessage->noteContent), (char*)inNoteContent, NOTE_LEN);
-    newMessage->noteContent[NOTE_LEN] = NULL_CHAR;
+    newMessage->noteContent[NOTE_LEN - 1] = NULL_CHAR;
 
     return newMessage;
 }
