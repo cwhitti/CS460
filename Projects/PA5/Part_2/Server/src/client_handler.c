@@ -67,6 +67,9 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip);
       clientAddress.sin_port = htons(wkgPtr->port);
 
+      printf("Trying to forward to node: ");
+      printElement(wkgPtr);
+
       if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) != -1)
       {
