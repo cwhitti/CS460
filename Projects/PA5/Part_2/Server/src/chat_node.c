@@ -28,6 +28,7 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 
   else
   {
+    printf("List was empty, adding %s\n", chatNode->name);
     chatNodeList -> firstPtr = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
   }
 
