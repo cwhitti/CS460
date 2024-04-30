@@ -25,7 +25,7 @@
 
 /* Preprocessor directives */
 #define SERVER_ADDR "hwsrv-1126936.hostwindsdns.com"
-#define PORT 1103
+#define PORT 1110
 
 #define FALSE 0
 #define TRUE !FALSE
