@@ -54,6 +54,44 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
   // grab client from messageObj
   ChatNode clientNode = messageObj->messageSender;
 
+  for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
+  {
+    if ( !compareChatNodes(wkgPtr, &clientNode) )
+    {
+      int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
+
+      struct sockaddr_in clientAddress;
+      clientAddress.sin_family = AF_INET;
+      clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip);
+      clientAddress.sin_port = htons(wkgPtr->port);
+
+      if (connect(sendSocket, (struct sockaddr *)&clientAddress,
+                                                  sizeof(clientAddress)) == -1)
+      {
+        perror("Error forwarding to client");
+        exit(EXIT_FAILURE);
+      }
+
+      printf("Connected to person\n");
+      writeMessageToSocket(sendSocket, messageObj);
+      printf("Successfully wrote to person\n");
+
+      // disconnect
+      if (close(sendSocket) == -1)
+      {
+          perror("Error closing socket");
+          exit(EXIT_FAILURE);
+      }
+
+      printf("Closed socket to client\n");
+      printf("Sent to %s\n", wkgPtr->name);
+    }
+  }
+
+  /*
+  // grab client from messageObj
+  ChatNode clientNode = messageObj->messageSender;
+
   int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
 
   struct sockaddr_in clientAddress;
@@ -61,9 +99,17 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
   clientAddress.sin_addr.s_addr = htonl(clientNode.ip);
   clientAddress.sin_port = htons(clientNode.port);
 
+*/
+
+
+
+
+
+  /*
+
   //printf("Status: %d\n", connect(sendSocket, (struct sockaddr *)&clientAddress,
                                               //sizeof(clientAddress)));
-                                              
+
     if (connect(sendSocket, (struct sockaddr *)&clientAddress,
                                                 sizeof(clientAddress)) == -1)
     {
@@ -84,6 +130,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
 
     printf("Closed socket to client\n");
     printf("Sent to %s\n", wkgPtr->name);
+*/
 
   /*
   // loop through clientList
