@@ -86,6 +86,11 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
             printf("Closed socket to client, exit\n");
         }
       }
+      else
+      {
+        perror("Error forwarding to client");
+        exit(EXIT_FAILURE);
+      }
 
       printf("Sent to %s\n", wkgPtr->name);
     }
