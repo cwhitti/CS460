@@ -1,5 +1,8 @@
 #include "chat_node.h"
 
+#define DBG
+#include "dbg.h"
+
 
 /*
   Function: addChatNodeToList
@@ -19,16 +22,15 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
     {
       wkgPtr = wkgPtr -> next;
     }
-   //printf("Adding %s\n", chatNode->name);
     // set last item -> next to chatNode
     wkgPtr->next = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
-    printf("List was not empty, added %s\n", chatNode->name);
+    debug("List was not empty, added %s\n", chatNode->name);
 
   }
 
   else
   {
-    printf("List was empty, adding %s\n", chatNode->name);
+    debug("List was empty, adding %s\n", chatNode->name);
     chatNodeList -> firstPtr = createChatNodeFromData(chatNode->ip, chatNode->port, chatNode->name);
   }
 
@@ -130,7 +132,7 @@ void displayLinkedList( ChatNodeList* chatNodeList )
 
     if (wkgPtr -> next != NULL )
     {
-      printf( "|\nv\n" );
+      debug( "|\nv\n" );
     }
 
     wkgPtr = wkgPtr->next;
@@ -156,7 +158,7 @@ ChatNodeList* initializeChatNodeList( void )
 
 void printElement( ChatNode *node)
 {
-  printf("Name: %s | Port: %u | IP: %u\n", node->name, node->port, node->ip);
+  debug("Name: %s | Port: %u | IP: %u\n", node->name, node->port, node->ip);
 }
 /*
   Function: privateCompareStrings

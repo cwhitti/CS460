@@ -15,6 +15,9 @@
 #include <time.h>
 #include <string.h>
 
+//define debug
+#define DBG
+
 // custom h files
 #include "client_handler.h"
 #include "dbg.h"

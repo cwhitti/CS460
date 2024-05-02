@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 
     properties = property_read_properties(argv[1]);
     sscanf(property_get_property(properties, "SERVER_PORT"), "%d", &port);
-    printf("Listening on port: %d\n", port);
+    debug("Listening on port: %d\n", port);
 
     pthread_mutex_t mainLock = PTHREAD_MUTEX_INITIALIZER;
     pthread_mutex_t llLock = PTHREAD_MUTEX_INITIALIZER;
@@ -88,7 +88,6 @@ int main(int argc, char** argv)
             perror("Error accepting connection");
             continue;
         }
-        //printf("\nServer with PID %d: accepted client\n", getpid());
 
         // assign clientSocket to threadArgs
         threadArgs.clientSocket = client_socket;
