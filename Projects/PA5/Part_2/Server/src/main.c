@@ -11,6 +11,12 @@ int main(int argc, char** argv)
     ThreadArgs threadArgs; // create thread args
     ChatNodeList* clientList; // TODO: initialize data for clientList
     int yes = 1;
+    int port;
+    Properties* properties;
+
+    properties = property_read_properties(argv[1]);
+    sscanf(property_get_property(properties, "SERVER_PORT"), "%d", &port);
+    printf("Listening on port: %d\n", port);
 
     pthread_mutex_t mainLock = PTHREAD_MUTEX_INITIALIZER;
     pthread_mutex_t llLock = PTHREAD_MUTEX_INITIALIZER;
@@ -47,7 +53,7 @@ int main(int argc, char** argv)
     // ----------------------------------------------------------
     server_address.sin_family      = AF_INET;           // accept IP addresses
     server_address.sin_addr.s_addr = htonl(INADDR_ANY); // accept clients on any interface
-    server_address.sin_port        = htons(PORT);       // port to listen on
+    server_address.sin_port        = htons(port);       // port to listen on
 
     // binding unnamed socket to a particular port
     if (bind(server_socket, (struct sockaddr *)&server_address, sizeof(server_address)) != 0)
