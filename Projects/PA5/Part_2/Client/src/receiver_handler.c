@@ -87,11 +87,18 @@ void* receiverLoop(void* arg)
             // SHUTDOWN: exit the receiver
                 // function: pthread_exit
             case SHUTDOWN_ALL:
+            exit(EXIT_SUCCESS);
             break;
 
             default:
             printf("You fucked up\n");
             break;
+        }
+
+        if (close(serverSocket) == -1)
+        {
+            perror("Error closing server socket");
+            exit(EXIT_FAILURE);
         }
     }
 }
