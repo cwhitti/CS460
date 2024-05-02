@@ -66,6 +66,7 @@ void* senderLoop(void* arg)
     }
     // exit thread
         // function: pthread_exit
+    // pthread_exit(NULL);
 }
 
 /*

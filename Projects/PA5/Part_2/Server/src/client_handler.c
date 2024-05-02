@@ -32,6 +32,8 @@ void clientLeave( ChatNodeList *clientList, Message* messageObj )
     // function: removeNodeFromList
   if (removeNodeFromList(clientList, &clientNode))
   {
+    printf("%s was removed!\n", clientNode.name);
+
     // change msgtype from LEAVE > LEAVING
     messageObj->messageType = LEAVING;
     strncpy( messageObj->noteContent, "User has Left!!!\n",
@@ -303,28 +305,37 @@ void* handle_client( void* args )
     //  LEAVE
     case LEAVE:
       // function: clientLeave()
+      printf("%s left\n", messageObj->messageSender.name);
       clientLeave(clientList, messageObj);
+      printf("Finished leaving\n");
       break;
 
     //  SHUTDOWN
     case SHUTDOWN:
+      printf("%s shutdown\n", messageObj->messageSender.name);
       // function: clientLeave()
       clientLeave(clientList, messageObj);
+      printf("Finished shutting down\n");
       break;
 
     //  SHUTDOWN_ALL
     case SHUTDOWN_ALL:
+      printf("%s shutdown all\n", messageObj->messageSender.name);
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
 
       // function: clearChatNodeList()
       clearChatNodeList(clientList);
+
+      printf("Finished shutdown all\n");
       break;
 
     //  NOTE
     case NOTE:
+      printf("Note from %s\n", messageObj->messageSender.name);
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
+      printf("Finished forwarding the note\n");
       break;
 
     //  JOINING
