@@ -26,7 +26,7 @@ typedef struct ThreadArgsStruct
     pthread_mutex_t* llLock;
 } ThreadArgs;
 
-//
+// check if client in list
 bool clientInList( ChatNodeList *clientList, Message* messageObj );
 
 // join function

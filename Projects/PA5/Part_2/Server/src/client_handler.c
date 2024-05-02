@@ -3,11 +3,14 @@
 //#define DBG
 #include "dbg.h"
 
+// find client in list
 bool clientInList( ChatNodeList *clientList, Message* messageObj )
 {
+  // declare variables
   ChatNode *wkgPtr = clientList -> firstPtr;
   ChatNode msgSender = messageObj -> messageSender;
 
+  // loop thru list
   while ( wkgPtr != NULL && !compareChatNodes( wkgPtr, &msgSender ) )
   {
     wkgPtr = wkgPtr -> next;
@@ -210,24 +213,13 @@ void* handle_client( void* args )
 
       break;
 
-    /*
-    //  JOINING
-    case JOINING:
-      // function: forwardMessage()
-      forwardMessage(clientList, messageObj);
-      break;
-
-    //  LEAVING
-    case LEAVING:
-      // function: forwardMessage()
-      forwardMessage(clientList, messageObj);
-      break;
-    */
     default:
       break;
   }
 
+  // debug purposes
   displayLinkedList( clientList );
 
+  // exit thread
   pthread_exit(NULL);
 }

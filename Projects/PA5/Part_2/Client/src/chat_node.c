@@ -28,6 +28,7 @@ void addChatNodeToList( ChatNodeList* chatNodeList, ChatNode* chatNode )
 
   }
 
+  // list is empty
   else
   {
     debug("List was empty, adding %s\n", chatNode->name);
@@ -124,12 +125,16 @@ void deepCopyChatNode( ChatNode* destNode, ChatNode* srcNode)
 */
 void displayLinkedList( ChatNodeList* chatNodeList )
 {
+  // declare variables
   ChatNode* wkgPtr = chatNodeList -> firstPtr;
 
+  // loop thru list
   while ( wkgPtr != NULL)
   {
+    // print node
     printElement( wkgPtr );
 
+    // print ptr
     if (wkgPtr -> next != NULL )
     {
       debug( "|\nv\n" );
@@ -167,14 +172,17 @@ void printElement( ChatNode *node)
 */
 int privateCompareStrings( const char *leftStr, const char *rightStr )
 {
+  // compare strings
   int diff, index = 0;
   int leftStrLen = privateGetStringLen( leftStr );
   int rightStrLen = privateGetStringLen( rightStr );
 
+  // begin while loop
   while( index < leftStrLen && index < rightStrLen )
   {
     diff = leftStr[ index ] - ( rightStr[ index ] );
 
+    // return difference if different
     if( diff != 0 )
     {
       return diff;
