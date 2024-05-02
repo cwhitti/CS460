@@ -43,46 +43,14 @@ int main(int argc, char** argv)
     chatNodes[0] = createChatNodeFromData((unsigned int)ntohl(inet_addr(clientIPString)),
                                           (unsigned short int)myPort,
                                            myName);
-    //printf("Server IP: %s\n", serverIPString);
-    //printf("Converted: %u\n", inet_addr(serverIPString));
+
     chatNodes[1] = createChatNodeFromData((unsigned int)ntohl(inet_addr(serverIPString)),
                                           (unsigned short int)serverPort,
                                            serverName);
 
-    /*
-    // set server address struct
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = inet_addr(serverIPString);
-    serverAddress.sin_port = htons(serverPort);
-
-    // set client address struct
-    clientAddress.sin_family = AF_INET;
-    clientAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-    clientAddress.sin_port = htons(receiverPort);
-    */
-
     /***************
      Start receiver
     ****************/
-
-    /*
-    // create receiving socket
-    receivingSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    // bind receiving socket
-    if (bind(receivingSocket, (struct sockaddr *)&clientAddress, sizeof(clientAddress)) != 0)
-    {
-        perror("Error binding socket");
-        exit(EXIT_FAILURE);
-    }
-
-    // start listening on receiving socket
-    if (listen(receivingSocket, NUM_CONNECTIONS) != 0)
-    {
-        perror("Error listening on socket");
-        exit(EXIT_FAILURE);
-    }
-    */
 
     // start listening for messages from server
     pthread_create(&receivingThread, NULL, receiverLoop, (void*)chatNodes);
@@ -91,20 +59,6 @@ int main(int argc, char** argv)
      Start sender
     **************/
 
-    /*
-    // create sending socket
-    sendingSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    // connect sending socket to server socket
-    if (connect(sendingSocket, (struct sockaddr *)&serverAddress,
-                                                sizeof(serverAddress)) == -1)
-    {
-        perror("Error connecting to server!\n");
-        exit(EXIT_FAILURE);
-    }
-    */
-
     // start sending messages to server
     senderLoop((void*)chatNodes);
-    //pthread_create(&sendingThread, NULL, senderLoop, (void*)chatNodes);
 }

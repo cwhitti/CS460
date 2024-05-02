@@ -64,9 +64,8 @@ void* senderLoop(void* arg)
             exit(EXIT_FAILURE);
         }
     }
-    // exit thread
-        // function: pthread_exit
-    // pthread_exit(NULL);
+
+    exit(EXIT_SUCCESS);
 }
 
 /*
@@ -77,18 +76,6 @@ Dependencies: sscanf
 */
 bool parseMessage(char* inString, Message* outMsg)
 {
-
-    /*
-    int day, year;
-       char weekday[20], month[20], dtm[100];
-
-       strcpy( dtm, "Saturday March 25 1989" );
-       sscanf( dtm, "%s %s %d  %d", weekday, month, &day, &year );
-
-    */
-
-    //strncmp(pre, str, strlen(pre)) == 0;
-
     // check for JOIN keyword in first word
     if ( strncmp(JOIN_KEYWORD, inString, strlen(JOIN_KEYWORD)) == 0 )
     {

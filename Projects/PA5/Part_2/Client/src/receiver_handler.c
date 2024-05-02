@@ -24,9 +24,7 @@ void* receiverLoop(void* arg)
 
     signal(SIGPIPE, SIG_IGN);
 
-    // ----------------------------------------------------------
-    // create unnamed network socket for server to listen on
-    // ----------------------------------------------------------
+    // create the receiver socket
     if ((receivingSocket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     {
         perror("Error creating socket");
@@ -105,7 +103,7 @@ void* receiverLoop(void* arg)
 
 void printNote(Message* inMsg)
 {
-    printf("%s: %s\n", inMsg->messageSender.name, inMsg->noteContent);
+    printf("%s: %s", inMsg->messageSender.name, inMsg->noteContent);
 }
 
 void printJoinMessage(Message* inMsg)

@@ -34,17 +34,9 @@ Message* createMessageFromMessage(Message* inMsg)
 
 void printMessageStruct(Message* msg)
 {
-    debug("Type: %d , IP: %u , Port: %u , Name: %s",
-            msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name);
-
-    //if (msg->messageType == NOTE)
-    //{
-        debug(" Note contents: %s\n", msg->noteContent);
-    //}
-    //else
-    //{
-        //debug("\n");
-    //}
+    debug("Type: %d , IP: %u , Port: %u , Name: %s, Note contents: %s\n",
+            msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name, 
+            msg->noteContent);
 }
 
 /*

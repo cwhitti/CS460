@@ -6,7 +6,8 @@
         "server-step1.no-frills.h": "c",
         "server-step1.byte-order.h": "c",
         "client-step3.race.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "typeinfo": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
