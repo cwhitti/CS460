@@ -1,5 +1,18 @@
 #include "client_handler.h"
 
+bool clientInList( ChatNodeList *clientList, Message* messageObj )
+{
+  ChatNode *wkgPtr = clientList -> firstPtr;
+  ChatNode msgSender = messageObj -> messageSender;
+
+  while ( wkgPtr != NULL && !compareChatNodes( wkgPtr, &msgSender ) )
+  {
+    wkgPtr = wkgPtr -> next;
+  }
+
+  return wkgPtr != NULL;
+
+}
 // join function
 void clientJoin( ChatNodeList *clientList, Message* messageObj )
 {
@@ -64,7 +77,7 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       printf("Trying to forward to: ");
       printElement( wkgPtr );
       printf("\n");
-      
+
       int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
 
       struct sockaddr_in clientAddress;
@@ -94,182 +107,8 @@ void forwardMessage( ChatNodeList *clientList, Message* messageObj )
       printf("Sent to %s\n", wkgPtr->name);
     }
   }
-
-  /*
-  // grab client from messageObj
-  ChatNode clientNode = messageObj->messageSender;
-
-  int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
-
-  struct sockaddr_in clientAddress;
-  clientAddress.sin_family = AF_INET;
-  clientAddress.sin_addr.s_addr = htonl(clientNode.ip);
-  clientAddress.sin_port = htons(clientNode.port);
-
-*/
-
-
-
-
-
-  /*
-
-  //printf("Status: %d\n", connect(sendSocket, (struct sockaddr *)&clientAddress,
-                                              //sizeof(clientAddress)));
-
-    if (connect(sendSocket, (struct sockaddr *)&clientAddress,
-                                                sizeof(clientAddress)) == -1)
-    {
-      perror("Error forwarding to client");
-      exit(EXIT_FAILURE);
-    }
-
-    printf("Connected to person\n");
-    writeMessageToSocket(sendSocket, messageObj);
-    printf("Successfully wrote to person\n");
-
-    // disconnect
-    if (close(sendSocket) == -1)
-    {
-        perror("Error closing socket");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Closed socket to client\n");
-    printf("Sent to %s\n", clientNode.name);
-
-  // loop through clientList
-  for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
-    // if the current client != clientNode
-    // function: compareChatNodes()
-    if ( !compareChatNodes(wkgPtr, &clientNode) )
-    {
-      // send message to everyone
-        // function: writeMessageToSocket( note )
-      int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
-
-      struct sockaddr_in clientAddress;
-      clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->ip);
-      clientAddress.sin_port = htons(wkgPtr->port);
-
-      printf("Trying to forward to node: ");
-      printElement(wkgPtr);
-
-      if (connect(sendSocket, (struct sockaddr *)&clientAddress,
-                                                sizeof(clientAddress)) == -1)
-      {
-        perror("Error forwarding to client");
-        exit(EXIT_FAILURE);
-      }
-
-      printf("Connected to person\n");
-      writeMessageToSocket(sendSocket, messageObj);
-      printf("Successfully wrote to person\n");
-
-      // disconnect
-      if (close(sendSocket) == -1)
-      {
-          perror("Error closing socket");
-          exit(EXIT_FAILURE);
-      }
-
-      printf("Closed socket to client\n");
-      printf("Sent to %s\n", wkgPtr->name);
-    }
-    */
 }
 
-/*
-// note function
-void clientNote( ChatNodeList *clientList, Message* messageObj )
-{
-  // declare variables
-  ChatNode* wkgPtr;
-
-  // grab client from messageObj
-  ChatNode clientNode = messageObj->messageSender;
-
-  // loop through clientList
-  for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
-    // if the current client != clientNode
-    // function: compareChatNodes()
-    if ( !compareChatNodes(wkgPtr, &clientNode) )
-    {
-      // send message to everyone
-        // function: writeMessageToSocket( note )
-      int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
-
-      struct sockaddr_in clientAddress;
-      clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip);
-      clientAddress.sin_port = htons(wkgPtr->chat_node.port);
-
-      if (connect(send, (struct sockaddr *)&clientAddress,
-                                                sizeof(clientAddress)) != -1)
-      {
-        writeMessageToSocket(sendSocket, messageObj);
-      }
-    }
-}
-
-// joining function
-void globalJoining( ChatNodeList *clientList, Message* messageObj )
-{
-  // "(!) [USER] has joined."
-  ChatNode* wkgPtr;
-  ChatNode clientNode = messageObj->messageSender;
-
-  // iterate through clientList
-  for (wkgPtr = clientList->firstPtr; wkgPtr != NULL; wkgPtr = wkgPtr->next)
-  {
-    if ( !compareChatNodes(wkgPtr &clientNode) )
-    {
-      // send message to everyone
-        // function: writeMessageToSocket( note )
-      int sendSocket = socket(AF_INET, SOCK_STREAM, 0);;
-
-      struct sockaddr_in clientAddress;
-      clientAddress.sin_family = AF_INET;
-      clientAddress.sin_addr.s_addr = htonl(wkgPtr->chat_node.ip);
-      clientAddress.sin_port = htons(wkgPtr->chat_node.port);
-
-      if (connect(send, (struct sockaddr *)&clientAddress,
-                                                sizeof(clientAddress)) != -1)
-      {
-        writeMessageToSocket(sendSocket, messageObj);
-      }
-    }
-  }
-}
-
-// leaving function
-void globalLeaving( ChatNodeList *clientList, Message* messageObj )
-{
-  // "(!) [USER] has left."
-
-  // iterate through clientList
-
-    // check if current client != sending client
-
-      // send message to client
-        // function: writeMessageToSocket( messageObj )
-
-}
-
-void globalShutdown( ChatNodeList *clientList, Message* messageObj )
-{
-  // "(!) Shutting Down..."
-
-  // iterate through clientList
-
-    // send message to everyone
-      // function: writeMessageToSocket
-
-  // clear list
-    // function: clearChatNodeList
-}
-*/
 void* handle_client( void* args )
 {
   // initialize variables
@@ -296,48 +135,75 @@ void* handle_client( void* args )
   {
     //  JOIN
     case JOIN:
-      // function: clientJoin()
-      printf("%s joined\n", messageObj->messageSender.name);
-      clientJoin(clientList, messageObj);
-      printf("Finsihed joining\n");
+
+      if ( !clientInList( clientList, messageObj ) )
+      {
+        // function: clientJoin()
+        printf("%s joined\n", messageObj->messageSender.name);
+        clientJoin(clientList, messageObj);
+        printf("Finsihed joining\n");
+      }
       break;
 
     //  LEAVE
     case LEAVE:
-      // function: clientLeave()
-      printf("%s left\n", messageObj->messageSender.name);
-      clientLeave(clientList, messageObj);
-      printf("Finished leaving\n");
+
+      if ( clientInList( clientList, messageObj ) )
+      {
+        // function: clientLeave()
+        printf("%s left\n", messageObj->messageSender.name);
+        clientLeave(clientList, messageObj);
+        printf("Finished leaving\n");
+      }
+
       break;
 
     //  SHUTDOWN
     case SHUTDOWN:
-      printf("%s shutdown\n", messageObj->messageSender.name);
-      // function: clientLeave()
-      clientLeave(clientList, messageObj);
-      printf("Finished shutting down\n");
+
+      if ( clientInList( clientList, messageObj ) )
+      {
+        printf("%s shutdown\n", messageObj->messageSender.name);
+        // function: clientLeave()
+        clientLeave(clientList, messageObj);
+        printf("Finished shutting down\n");
+      }
+
       break;
 
     //  SHUTDOWN_ALL
     case SHUTDOWN_ALL:
-      printf("%s shutdown all\n", messageObj->messageSender.name);
-      // function: forwardMessage()
-      forwardMessage(clientList, messageObj);
 
-      // function: clearChatNodeList()
-      clearChatNodeList(clientList);
+      if ( clientInList( clientList, messageObj ) )
+      {
+        printf("%s shutdown all\n", messageObj->messageSender.name);
+        // function: forwardMessage()
+        forwardMessage(clientList, messageObj);
 
-      printf("Finished shutdown all\n");
+        // function: clearChatNodeList()
+        clearChatNodeList(clientList);
+
+        printf("Finished shutdown all\n");
+      }
       break;
 
     //  NOTE
     case NOTE:
       printf("Note from %s\n", messageObj->messageSender.name);
       // function: forwardMessage()
-      forwardMessage(clientList, messageObj);
-      printf("Finished forwarding the note\n");
+
+      if ( clientInList( clientList, messageObj ) )
+      {
+        forwardMessage(clientList, messageObj);
+        printf("Finished forwarding the note\n");
+      }
+      else
+      {
+        printf("%s not in list\n", messageObj->messageSender.name);
+      }
       break;
 
+    /*
     //  JOINING
     case JOINING:
       // function: forwardMessage()
@@ -348,6 +214,9 @@ void* handle_client( void* args )
     case LEAVING:
       // function: forwardMessage()
       forwardMessage(clientList, messageObj);
+      break;
+    */
+    default:
       break;
   }
 

@@ -26,6 +26,9 @@ typedef struct ThreadArgsStruct
     pthread_mutex_t* llLock;
 } ThreadArgs;
 
+//
+bool clientInList( ChatNodeList *clientList, Message* messageObj );
+
 // join function
 void clientJoin( ChatNodeList *clientList, Message* messageObj );
 
