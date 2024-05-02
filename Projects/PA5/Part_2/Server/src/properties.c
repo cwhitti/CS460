@@ -16,12 +16,12 @@
 /* ******************************************************************** */
 
 char* property_get_property(Properties* properties, char* key) {
-    
+
     char* value = NULL;
-    
+
     // from the beginning of the list ...
     PropertyListElement* current = properties->first;
-    
+
     // ... run through all the properties
     while(current->next)
     {
@@ -34,7 +34,7 @@ char* property_get_property(Properties* properties, char* key) {
         // go to next node
         current = current->next;
     }
-    
+
     return value;
 }
 
@@ -49,7 +49,7 @@ Properties* property_read_properties(char* properties_file_string)
     char key[64];
     char value[64];
     char line[128];
-    
+
     Properties* properties = property_list_new();
     Property* property_ptr;
 
@@ -63,13 +63,13 @@ Properties* property_read_properties(char* properties_file_string)
     while(fgets(line, sizeof(line), properties_file))
     {
         sscanf(line, "%64s = %64s", key, value);
-        
+
         property_ptr = property_new(key, value);
         property_list_add_property(properties, property_ptr);
     }
 
     return properties;
-    
+
 error:
     printf("Oopsie ...");
     exit(EXIT_FAILURE);
@@ -88,10 +88,10 @@ Property* property_new(char* key, char* value)
 
     strcpy(key_ptr, key);
     strcpy(value_ptr, value);
-    
+
     property_ptr->key = key_ptr;
     property_ptr->value = value_ptr;
-    
+
     return property_ptr;
 }
 
@@ -106,9 +106,9 @@ Properties* property_list_new(void)
 
     property_list->first = (PropertyListElement*) malloc(sizeof(PropertyListElement));
     property_list->first->next = NULL;
-    
+
     property_list->last = property_list->first;
-    
+
     return property_list;
 }
 
@@ -122,7 +122,7 @@ void property_list_add_property(Properties* properties, Property* property)
     properties->last->property = *property;
     properties->last->next = (PropertyListElement*) malloc(sizeof(PropertyListElement));
     properties->last->next->next = NULL;
-    
+
     properties->last = properties->last->next;
 }
 
@@ -141,10 +141,10 @@ int _main(int argc, const char * argv[]) {
     Properties* properties;
     char* key = "MY_PORT";
     char* value;
-    
+
     properties = property_read_properties(properties_file);
     value = property_get_property(properties, key);
-    
+
     printf("\nValue for %s: %s\n", key, value);
 
     return EXIT_SUCCESS;

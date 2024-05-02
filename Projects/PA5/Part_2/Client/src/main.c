@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define DBG
+//#define DBG
 #include "dbg.h"
 
 int main(int argc, char** argv)
@@ -57,14 +57,14 @@ int main(int argc, char** argv)
 
     // set client address struct
     clientAddress.sin_family = AF_INET;
-    clientAddress.sin_addr.s_addr = htonl(INADDR_ANY); 
+    clientAddress.sin_addr.s_addr = htonl(INADDR_ANY);
     clientAddress.sin_port = htons(receiverPort);
-    */ 
+    */
 
     /***************
      Start receiver
     ****************/
-    
+
     /*
     // create receiving socket
     receivingSocket = socket(AF_INET, SOCK_STREAM, 0);

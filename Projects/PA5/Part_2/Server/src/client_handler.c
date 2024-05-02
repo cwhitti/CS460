@@ -1,6 +1,6 @@
 #include "client_handler.h"
 
-#define DBG
+//#define DBG
 #include "dbg.h"
 
 bool clientInList( ChatNodeList *clientList, Message* messageObj )

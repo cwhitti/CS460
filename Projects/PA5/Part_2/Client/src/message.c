@@ -1,6 +1,6 @@
 #include "message.h"
 
-#define DBG
+//#define DBG
 #include "dbg.h"
 
 /*

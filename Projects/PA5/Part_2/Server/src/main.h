@@ -16,7 +16,7 @@
 #include <string.h>
 
 //define debug
-#define DBG
+//#define DBG
 
 // custom h files
 #include "client_handler.h"
