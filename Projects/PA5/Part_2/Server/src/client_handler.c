@@ -185,6 +185,9 @@ void* handle_client( void* args )
 
         printf("Finished shutdown all\n");
       }
+
+      exit(EXIT_SUCCESS);
+      
       break;
 
     //  NOTE
@@ -202,7 +205,6 @@ void* handle_client( void* args )
         printf("%s not in list\n", messageObj->messageSender.name);
       }
 
-      exit(EXIT_SUCCESS);
       break;
 
     /*
