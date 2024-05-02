@@ -1,5 +1,8 @@
 #include "message.h"
 
+#define DBG
+#include "dbg.h"
+
 /*
 Returns a pointer to a new message, initialized with given data
 Dependencies: createChatNodeFromChatNode
@@ -31,16 +34,16 @@ Message* createMessageFromMessage(Message* inMsg)
 
 void printMessageStruct(Message* msg)
 {
-    printf("Type: %d , IP: %u , Port: %u , Name: %s",
+    debug("Type: %d , IP: %u , Port: %u , Name: %s",
             msg->messageType, msg->messageSender.ip, msg->messageSender.port, msg->messageSender.name);
 
     //if (msg->messageType == NOTE)
     //{
-        printf(" Note contents: %s\n", msg->noteContent);
+        debug(" Note contents: %s\n", msg->noteContent);
     //}
     //else
     //{
-        //printf("\n");
+        //debug("\n");
     //}
 }
 
@@ -71,7 +74,7 @@ Message* readMessageFromSocket(int socket)
     newChatNode = createChatNodeFromData(ntohl(inIp), ntohs(inPort), inName);
     newMessage = createMessageFromData(ntohl(inMsgType), newChatNode, inNote);
 
-    printf("Message read:\n");
+    debug("Message read:\n");
     printMessageStruct(newMessage);
 
     // return new message
@@ -131,6 +134,6 @@ void writeMessageToSocket(int socket, Message* outMsg)
     // write note content
     write(socket, &(outMsg->noteContent), NOTE_LEN);
 
-    printf("Message written:\n");
+    debug("Message written:\n");
     printMessageStruct(outMsg);
 }

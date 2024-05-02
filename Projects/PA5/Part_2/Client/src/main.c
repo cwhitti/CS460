@@ -1,5 +1,8 @@
 #include "main.h"
 
+#define DBG
+#include "dbg.h"
+
 int main(int argc, char** argv)
 {
     int receivingSocket, sendingSocket;
@@ -21,7 +24,7 @@ int main(int argc, char** argv)
     // read properties
     if (argc != 2)
     {
-        printf("Must include properties file name in arguments!\n");
+        debug("Must include properties file name in arguments!\n");
         exit(EXIT_FAILURE);
     }
 
