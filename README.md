@@ -2,5 +2,4 @@
 This repository is for CS460 Programming Assignements
 
 # Contributers
-Peter Hilbert
-Claire Whittington
+Peter Hilbert, Claire Whittington
